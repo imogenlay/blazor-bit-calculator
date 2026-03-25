@@ -1,0 +1,8 @@
+.vs/
+BitCalculator/.vs/
+BitCalculator/bin/
+BitCalculator/obj/
+*.ini
+.env
+.env.development
+.env.production
