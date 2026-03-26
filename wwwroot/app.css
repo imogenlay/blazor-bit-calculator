@@ -1,0 +1,81 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Consolas", monospace, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-synthesis: none;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-decoration: none;
+    border-radius: 0;
+    overflow-x: visible;
+    scroll-behavior: smooth; 
+}
+
+:root {
+    /* WIDTH */
+    --main-width: min(90vw, 1200px);
+    --inset: calc((100vw - var(--main-width)) * 0.5);
+    /* COLORS */
+    --clr-grey-1: rgb(225, 225, 225);
+    --clr-grey-2: rgb(200, 200, 200);
+    --clr-grey-3: rgb(175, 175, 175);
+    --clr-grey-4: rgb(150, 150, 150);
+    --clr-grey-5: rgb(125, 125, 125);
+    --clr-grey-6: rgb(100, 100, 100);
+    --clr-grey-7: rgb(075, 075, 075);
+    --clr-grey-8: rgb(050, 050, 050);
+    --clr-grey-9: rgb(025, 025, 025);
+    --clr-background: #ebf7ff;
+    --clr-accent: #13a0ff;
+    --clr-accent-light: #66c2ff;
+    --clr-red: #ff3d37;
+    --clr-red-light: #ff7672;
+}
+
+body,
+main {
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--clr-background);
+}
+
+html {
+    width: 100vw;
+    min-height: 100%;
+    color: var(--clr-grey-8);
+}
+
+.loading-progress {
+    position: relative;
+    display: block;
+    width: 8rem;
+    height: 8rem;
+    margin: 20vh auto 1rem auto;
+}
+
+.loading-progress circle {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 0.6rem;
+    transform-origin: 50% 50%;
+    transform: rotate(-90deg);
+}
+
+.loading-progress circle:last-child {
+    stroke: #1b6ec2;
+    stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8);
+    stroke-dashoffset: 0;
+    transition: stroke-dasharray 0.05s ease-in-out;
+}
+
+.loading-progress-text {
+    position: absolute;
+    text-align: center;
+    font-weight: bold;
+    inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
+}
