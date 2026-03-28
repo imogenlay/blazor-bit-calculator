@@ -4,21 +4,14 @@ namespace BitCalculator;
 
 public static class Bell
 {
-	public static string GetHexidecimal(IntegerSize type, object prev) => BuildString(type, prev, "X");
 	public static string GetBinary(IntegerSize type, object prev) => BuildString(type, prev, "B");
-
-	public static string GetHexidecimal(IntegerSize type, string prev)
-	{
-		if (type == IntegerSize.uint64)
-		{
-			if (Int128.MaxValue)
-		}
-
-	}
-	public static string GetBinary(IntegerSize type, string prev) => BuildString(type, prev, "B");
+	public static string GetHexidecimal(IntegerSize type, object prev) => BuildString(type, prev, "X");
 
 	private static string BuildString(IntegerSize type, object prev, string format)
 	{
+		if (prev is string prevString && Int128.TryParse(prevString, out Int128 result))
+			prev = result;
+
 		string value = type switch
 		{
 			IntegerSize.int8 => ((sbyte)prev).ToString(format),

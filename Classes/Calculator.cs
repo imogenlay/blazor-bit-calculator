@@ -5,92 +5,54 @@ public class Calculator
 	public IntegerSize CurrentIntegerSize { get; private set; }
 	public OperatorType CurrentOperator { get; private set; }
 	public object PreviousValue { get; private set; }
-	public string CurrentInput { get; private set; }
+	public object CurrentValue { get; private set; }
 
 	public Calculator()
 	{
 		CurrentIntegerSize = IntegerSize.int32;
-		PreviousValue = 0;
 		CurrentOperator = OperatorType.Add;
-		CurrentInput = "0";
+		PreviousValue = 0;
+		CurrentValue = 0;
 	}
 
-	public void UpdateInput(string newInput) => CurrentInput = newInput;
 	public void UpdateOperator(OperatorType newOperator) => CurrentOperator = newOperator;
+	public void UpdatePreviousInput(string newInput)
+	{
+		//if (Int128.TryParse(newInput, out Int128 result))
+		//	PreviousValue = result;
+	}
+	public void UpdateCurrentInput(string newInput)
+	{
+		//if (Int128.TryParse(newInput, out Int128 result))
+		//	CurrentValue = result;
+	}
 
 	public void UpdateType(IntegerSize newIntegerSize)
 	{
 		CurrentIntegerSize = newIntegerSize;
-
-		if (PreviousValue is sbyte or short or int or long)
-		{
-			// Cast previous signed value to new value type.
-			long signedValue = Convert.ToInt64(PreviousValue);
-			PreviousValue = Operations.CastToType(CurrentIntegerSize, signedValue);
-		}
-		else
-		{
-			// Cast previous unsigned value to new value type. 
-			ulong unsignedValue = Convert.ToUInt64(PreviousValue);
-			PreviousValue = Operations.CastToType(CurrentIntegerSize, unsignedValue);
-		}
+		PreviousValue = Operations.CastToType(CurrentIntegerSize, (Int128)PreviousValue);
 	}
 
 	public void RunCalculation()
 	{
-		if (CurrentIntegerSize == IntegerSize.uint64)
+		Int128 prev = (Int128)PreviousValue;
+		Int128 result = unchecked(CurrentOperator switch
 		{
-			// do ulong
-			if (!ulong.TryParse(CurrentInput, out ulong uvalue)) return;
+			OperatorType.Equal => (Int128)CurrentValue,
+			OperatorType.Add => prev + (Int128)CurrentValue,
+			OperatorType.Subtract => prev - (Int128)CurrentValue,
+			OperatorType.Multiply => prev * (Int128)CurrentValue,
+			OperatorType.Divide => prev / (Int128)CurrentValue,
+			OperatorType.Mod => prev % (Int128)CurrentValue,
+			OperatorType.LeftShift => prev << (int)CurrentValue,
+			OperatorType.RightShift => prev >> (int)CurrentValue,
+			OperatorType.AND => prev & (Int128)CurrentValue,
+			OperatorType.OR => prev | (Int128)CurrentValue,
+			OperatorType.NOT => ~prev,
+			OperatorType.XOR => prev ^ (Int128)CurrentValue,
+			_ => prev
+		});
 
-			// Unsigned long has to function differently due to the fact
-			// that it can have values that are outside the range of signed long.
-			ulong prev = Convert.ToUInt64(PreviousValue);
-			ulong result = unchecked(CurrentOperator switch
-			{
-				OperatorType.Equal => uvalue,
-				OperatorType.Add => prev + uvalue,
-				OperatorType.Subtract => prev - uvalue,
-				OperatorType.Multiply => prev * uvalue,
-				OperatorType.Divide => prev / uvalue,
-				OperatorType.Mod => prev % uvalue,
-				OperatorType.LeftShift => prev << (int)uvalue,
-				OperatorType.RightShift => prev >> (int)uvalue,
-				OperatorType.AND => prev & uvalue,
-				OperatorType.OR => prev | uvalue,
-				OperatorType.NOT => ~prev,
-				OperatorType.XOR => prev ^ uvalue,
-				_ => prev
-			});
-
-			PreviousValue = Operations.CastToType(CurrentIntegerSize, result);
-
-			return;
-		}
-
-		if (long.TryParse(CurrentInput, out long value))
-		{
-			long prev = Convert.ToInt64(PreviousValue);
-			long result = unchecked(CurrentOperator switch
-			{
-				OperatorType.Equal => value,
-				OperatorType.Add => prev + value,
-				OperatorType.Subtract => prev - value,
-				OperatorType.Multiply => prev * value,
-				OperatorType.Divide => prev / value,
-				OperatorType.Mod => prev % value,
-				OperatorType.LeftShift => prev << (int)value,
-				OperatorType.RightShift => prev >> (int)value,
-				OperatorType.AND => prev & value,
-				OperatorType.OR => prev | value,
-				OperatorType.NOT => ~prev,
-				OperatorType.XOR => prev ^ value,
-				_ => prev
-			});
-
-			PreviousValue = Operations.CastToType(CurrentIntegerSize, result);
-		}
+		PreviousValue = Operations.CastToType(CurrentIntegerSize, result);
 	}
-
-
 }

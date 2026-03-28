@@ -5,10 +5,9 @@
 
 <article class="flex-row-s-s gap-d">
 	<div class="flex-spread">
-		<NumberDisplay CurrentInput="@(calculator.CurrentInput)"
-					   PreviousValue="@(calculator.PreviousValue)"
+		<NumberDisplay CurrentInput="@((Int128)calculator.PreviousValue)"
 					   CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
-					   OnInput="@(ReadInput)" />
+					   OnInput="@(ReadPreviousInput)" />
 
 		<hr />
 		<h3>Calculation ZONE</h3>
@@ -27,9 +26,9 @@
 		}
 		else
 		{
-			<input type="number"
-				   value="@(calculator.CurrentInput)"
-				   @oninput="@(ReadInput)" />
+			<NumberDisplay CurrentInput="@((Int128)calculator.CurrentValue)"
+						   CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
+						   OnInput="@(ReadCurrentInput)" /> 
 		}
 		<button @onclick="@(calculator.RunCalculation)">@(calculator.CurrentOperator)</button>
 	</div>
@@ -49,11 +48,18 @@
 @code {
 	private Calculator calculator = new Calculator();
 
-	private void ReadInput(ChangeEventArgs e)
+	private void ReadPreviousInput(ChangeEventArgs e)
 	{
 		string newInput = e.Value?.ToString() ?? "0";
 		if (newInput.Length > 0)
-			calculator.UpdateInput(newInput);
+			calculator.UpdatePreviousInput(newInput);
+	}
+
+	private void ReadCurrentInput(ChangeEventArgs e)
+	{
+		string newInput = e.Value?.ToString() ?? "0";
+		if (newInput.Length > 0)
+			calculator.UpdateCurrentInput(newInput);
 	}
 
 	private void SelectOperator(OperatorType newOperator)

@@ -22,20 +22,7 @@ public static class Operations
 		}
 	}
 
-	public static object CastToType(IntegerSize integerSize, long value) => integerSize switch
-	{
-		IntegerSize.int8 => unchecked((sbyte)value),
-		IntegerSize.uint8 => unchecked((byte)value),
-		IntegerSize.int16 => unchecked((short)value),
-		IntegerSize.uint16 => unchecked((ushort)value),
-		IntegerSize.int32 => unchecked((int)value),
-		IntegerSize.uint32 => unchecked((uint)value),
-		IntegerSize.int64 => value,
-		IntegerSize.uint64 => unchecked((ulong)value),
-		_ => throw new ArgumentException("Unsupported type")
-	};
-
-	public static object CastToType(IntegerSize integerSize, ulong value) => integerSize switch
+	public static object CastToType(IntegerSize integerSize, Int128 value) => integerSize switch
 	{
 		IntegerSize.int8 => unchecked((sbyte)value),
 		IntegerSize.uint8 => unchecked((byte)value),
@@ -44,7 +31,7 @@ public static class Operations
 		IntegerSize.int32 => unchecked((int)value),
 		IntegerSize.uint32 => unchecked((uint)value),
 		IntegerSize.int64 => unchecked((long)value),
-		IntegerSize.uint64 => value,
+		IntegerSize.uint64 => unchecked((ulong)value),
 		_ => throw new ArgumentException("Unsupported type")
 	};
 }
