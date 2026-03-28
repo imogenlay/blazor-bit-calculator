@@ -1,10 +1,29 @@
-﻿<p>Size: @GetBytes() byte(s)</p>
+﻿<div class="bit-array">
+	<aside>@(BitOffset)</aside>
+	@for (int i = 7; i >= 0; i--)
+	{
+		int offset = i;
+		<button @onclick="@(() => ToggleBit(offset))">@((CurrentByte >> offset) & 1)</button>
+		if (offset == 4)
+		{
+			<div />
+		}
+	}
+</div>
 
 @code {
-	[Parameter] public IntegerSize CurrentIntegerSize { get; set; }
+	[Parameter] public int BitOffset { get; set; }
+	[Parameter] public byte CurrentByte { get; set; }
+	[Parameter] public EventCallback<ChangeEventArgs> OnModify { get; set; }
 
-	private string GetBytes()
+	private void ToggleBit(int offset)
 	{
-		return CurrentIntegerSize.ToString();
+		byte newByte = (byte)(CurrentByte ^ (1 << offset));
+		ByteModifier byteModifier = new ByteModifier(newByte, BitOffset);
+		Console.WriteLine("CurrentByte   " + CurrentByte + "  | newByte " + newByte + "   offset " + offset);
+
+		ChangeEventArgs args = new();
+		args.Value = byteModifier;
+		OnModify.InvokeAsync(args);
 	}
 }

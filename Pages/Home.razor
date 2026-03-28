@@ -5,32 +5,24 @@
 
 <article class="flex-row-s-s gap-d">
 	<div class="flex-spread">
-		<NumberDisplay CurrentInput="@((Int128)calculator.PreviousValue)"
+		<NumberDisplay CurrentInput="@(calculator.PreviousValue)"
+					   DisplayOutOfBoundsInput="@(false)"
 					   CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
 					   OnInput="@(ReadPreviousInput)" />
-
 		<hr />
-		<h3>Calculation ZONE</h3>
-		<div class="flex-row-s-s gap-a ">
+		<NumberDisplay CurrentInput="@(calculator.CurrentValue)"
+					   DisplayOutOfBoundsInput="@(true)"
+					   CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
+					   OnInput="@(ReadCurrentInput)" />
+		<div class="flex-row-s-s gap-b operator-buttons">
 			@foreach (OperatorType type in Enum.GetValues<OperatorType>())
 			{
 				<OperatorButton Operator="@(type)"
-								SelectOperator="@(SelectOperator)"
-								Selected="@(calculator.CurrentOperator)">@(Operations.GetButtonTextForOperator(type))</OperatorButton>
+								SelectOperator="@(SelectOperator)">
+					@(Operations.GetButtonTextForOperator(type))
+				</OperatorButton>
 			}
 		</div>
-
-		@if (calculator.CurrentOperator == OperatorType.NOT)
-		{
-			<p>NOT</p>
-		}
-		else
-		{
-			<NumberDisplay CurrentInput="@((Int128)calculator.CurrentValue)"
-						   CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
-						   OnInput="@(ReadCurrentInput)" /> 
-		}
-		<button @onclick="@(calculator.RunCalculation)">@(calculator.CurrentOperator)</button>
 	</div>
 	<div>
 		<div class="integer-sizes">
@@ -65,5 +57,6 @@
 	private void SelectOperator(OperatorType newOperator)
 	{
 		calculator.UpdateOperator(newOperator);
+		calculator.RunCalculation();
 	}
 }

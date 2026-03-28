@@ -1,12 +1,10 @@
-﻿<button class="@(Operator == Selected ? "selected" : "")"
-		@onclick="@(Select)">
+﻿<button @onclick="@(Select)" class="operator-button">
 	@ChildContent
 </button>
 
 @code {
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 	[Parameter] public OperatorType Operator { get; set; }
-	[Parameter] public OperatorType Selected { get; set; }
 	[Parameter] public EventCallback<OperatorType> SelectOperator { get; set; }
 
 	private async Task Select()

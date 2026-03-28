@@ -30,9 +30,12 @@
   --clr-grey-8: rgb(050, 050, 050);
   --clr-grey-9: rgb(025, 025, 025);
   --clr-background: #ebf7ff;
-  --clr-accent: #13a0ff;
-  --clr-accent-light: #66c2ff;
-  --clr-accent-dark: #0b86d7;
+  --clr-accent-1: #ddf6ff;
+  --clr-accent-2: #b8ecff;
+  --clr-accent-3: #92e2ff;
+  --clr-accent-4: #66c2ff;
+  --clr-accent-5: #13a0ff;
+  --clr-accent-6: #0b86d7;
   --clr-red: #ff3d37;
   --clr-red-light: #ff7672;
 }
@@ -56,7 +59,7 @@ main {
 nav {
   width: 100vw;
   height: 3rem;
-  background-color: var(--clr-accent);
+  background-color: var(--clr-accent-5);
   padding: 0 var(--inset);
 }
 
@@ -68,6 +71,11 @@ section {
     0 4px 8px 0 #00000033,
     0 6px 20px 0 #00000033;
   padding: 1rem;
+}
+
+hr {
+  margin: 0.5rem 0 1rem 0;
+  border: 1px solid var(--clr-accent-4);
 }
 
 .loading-progress {

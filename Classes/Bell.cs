@@ -4,28 +4,43 @@ namespace BitCalculator;
 
 public static class Bell
 {
-	public static string GetBinary(IntegerSize type, object prev) => BuildString(type, prev, "B");
-	public static string GetHexidecimal(IntegerSize type, object prev) => BuildString(type, prev, "X");
-
-	private static string BuildString(IntegerSize type, object prev, string format)
+	public static string GetDecimal(IntegerSize type, Int128 value)
 	{
-		if (prev is string prevString && Int128.TryParse(prevString, out Int128 result))
-			prev = result;
+		return Operations.CastToType(type, value).ToString();
+	}
 
-		string value = type switch
+	public static string GetBinary(IntegerSize type, Int128 value) => BuildString(type, value, "B");
+	public static string GetBinary(IntegerSize type, string value)
+	{
+		if (Int128.TryParse(value, out Int128 result))
+			return GetBinary(type, result);
+		return "Unknown Binary Value";
+	}
+
+	public static string GetHexidecimal(IntegerSize type, Int128 value) => BuildString(type, value, "X");
+	public static string GetHexidecimal(IntegerSize type, string value)
+	{
+		if (Int128.TryParse(value, out Int128 result))
+			return GetHexidecimal(type, result);
+		return "Unknown Hex Value";
+	}
+
+	private static string BuildString(IntegerSize type, Int128 value, string format)
+	{
+		string text = unchecked(type switch
 		{
-			IntegerSize.int8 => ((sbyte)prev).ToString(format),
-			IntegerSize.uint8 => ((byte)prev).ToString(format),
-			IntegerSize.int16 => ((short)prev).ToString(format),
-			IntegerSize.uint16 => ((ushort)prev).ToString(format),
-			IntegerSize.int32 => ((int)prev).ToString(format),
-			IntegerSize.uint32 => ((uint)prev).ToString(format),
-			IntegerSize.int64 => ((long)prev).ToString(format),
-			IntegerSize.uint64 => ((ulong)prev).ToString(format),
+			IntegerSize.int8 => ((sbyte)value).ToString(format),
+			IntegerSize.uint8 => ((byte)value).ToString(format),
+			IntegerSize.int16 => ((short)value).ToString(format),
+			IntegerSize.uint16 => ((ushort)value).ToString(format),
+			IntegerSize.int32 => ((int)value).ToString(format),
+			IntegerSize.uint32 => ((uint)value).ToString(format),
+			IntegerSize.int64 => ((long)value).ToString(format),
+			IntegerSize.uint64 => ((ulong)value).ToString(format),
 			_ => "0"
-		};
+		});
 
-		return SpaceNumber(value, 4, '_');
+		return SpaceNumber(text, 4, '_');
 	}
 
 	public static string SpaceNumber(string number, int split, char character)

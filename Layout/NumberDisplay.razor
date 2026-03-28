@@ -1,15 +1,93 @@
-﻿<input type="number"
-	   value="@(CurrentInput)"
-	   @oninput="@(OnInput)" />
+﻿<div class="flex-row-s-c gap-b number-input-parent">
+	<input class="@(GetClass())"
+		   value="@(GetInput())"
+		   @oninput="@(OnInput)" />
+	<button @onclick="@(SetMin)">Min</button>
+	<button @onclick="@(Decrement)">-</button>
+	@if ((int)CurrentIntegerSize % 2 == 0)
+	{
+		<button @onclick="@(Zero)">0</button>
+	}
+	<button @onclick="@(Increment)">+</button>
+	<button @onclick="@(SetMax)">Max</button>
+</div>
 
 <div class="flex-col-s-s">
-	<p>DEC: @(CurrentInput)</p>
-	<p>HEX: @(Bell.GetHexidecimal(CurrentIntegerSize, CurrentInput))</p>
-	<p>BIN: @(Bell.GetBinary(CurrentIntegerSize, CurrentInput))</p>
+	<p @onclick="@(CopyDecimal)" class="copy-text    "><b>DEC: </b>@(Decimal)</p>
+	<p @onclick="@(CopyHexidecimal)" class="copy-text"><b>HEX: </b>@(Hexidecimal)</p>
+	<p @onclick="@(CopyBinary)" class="copy-text     "><b>BIN: </b>@(Binary)</p>
+</div>
+
+<div class="byte-array">
+	@{
+		int byteCount = (int)Math.Pow(2, ((int)CurrentIntegerSize) / 2);
+		for (int i = 0; i < byteCount; i++)
+		{
+			int bitOffset = 8 * (byteCount - i - 1);
+			byte currentByte = (byte)((CurrentInput >> bitOffset) & byte.MaxValue);
+			<ByteDisplay BitOffset="@(bitOffset)"
+						 CurrentByte="@(currentByte)"
+						 OnModify="@(OnModify)" />
+		}
+	}
 </div>
 
 @code {
-	[Parameter] public Int128 CurrentInput { get; set; } 
+	[Parameter] public Int128 CurrentInput { get; set; }
+	[Parameter] public bool DisplayOutOfBoundsInput { get; set; }
 	[Parameter] public IntegerSize CurrentIntegerSize { get; set; }
 	[Parameter] public EventCallback<ChangeEventArgs> OnInput { get; set; }
+
+	public string Decimal => Bell.GetDecimal(CurrentIntegerSize, CurrentInput);
+	public string Hexidecimal => Bell.GetHexidecimal(CurrentIntegerSize, CurrentInput);
+	public string Binary => Bell.GetBinary(CurrentIntegerSize, CurrentInput);
+
+	private string GetInput()
+	{
+		Int128 input = DisplayOutOfBoundsInput ? CurrentInput : Operations.CastToType(CurrentIntegerSize, CurrentInput);
+		return input.ToString();
+	}
+
+	private string GetClass()
+	{
+		string className = "flex-spread";
+
+		if (Operations.IsOutOfBounds(CurrentIntegerSize, CurrentInput))
+			className += " oob";
+
+		return className;
+	}
+
+	private void OnModify(ChangeEventArgs e)
+	{
+		if (e.Value == null)
+			return;
+		ByteModifier byteModifier = (ByteModifier)e.Value;
+		Int128 value = (Int128)byteModifier.Value << byteModifier.Offset;
+		Int128 mask = ~((Int128)0xFF << byteModifier.Offset);
+		ChangeInput((CurrentInput & mask) | value);
+	}
+
+	private void SetMin() => ChangeInput(Operations.GetMin(CurrentIntegerSize));
+	private void Increment() => ChangeInput(Operations.Increment(CurrentIntegerSize, CurrentInput));
+	private void Zero() => ChangeInput(0);
+	private void Decrement() => ChangeInput(Operations.Decrement(CurrentIntegerSize, CurrentInput));
+	private void SetMax() => ChangeInput(Operations.GetMax(CurrentIntegerSize));
+
+	private void ChangeInput(Int128 value)
+	{
+		ChangeEventArgs args = new();
+		args.Value = value;
+		OnInput.InvokeAsync(args);
+	}
+
+	private void CopyDecimal() => Copy(Decimal);
+	private void CopyHexidecimal() => Copy(Hexidecimal);
+	private void CopyBinary() => Copy(Binary);
+
+	@inject IJSRuntime JS
+	private void Copy(string value)
+	{
+		JS.InvokeVoidAsync("navigator.clipboard.writeText", value);
+	}
 }
