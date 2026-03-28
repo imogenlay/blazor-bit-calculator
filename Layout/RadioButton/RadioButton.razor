@@ -1,0 +1,13 @@
+﻿<label>
+    <input type="radio" name="@Name" value="@Value"
+    checked="@(Selected == Value)"
+    @onchange="@(() => OnChange.InvokeAsync(Value))" />
+    @Value
+</label>
+
+@code {
+    [Parameter] public string Name { get; set; } = "";
+    [Parameter] public string Value { get; set; } = "";
+    [Parameter] public string Selected { get; set; } = "";
+    [Parameter] public EventCallback<string> OnChange { get; set; }
+}

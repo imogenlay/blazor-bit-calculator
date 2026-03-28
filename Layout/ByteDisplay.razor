@@ -1,0 +1,10 @@
+﻿<p>Size: @GetBytes() byte(s)</p>
+
+@code {
+	[Parameter] public IntType CurrentIntType { get; set; }
+
+	private string GetBytes()
+	{
+		return CurrentIntType.ToString();
+	}
+}

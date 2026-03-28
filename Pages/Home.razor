@@ -1,5 +1,92 @@
 ﻿@page "/"
+@using BitCalculator.Layout.RadioButton
+@using BitCalculator
 
-<h1>Hello, world!</h1>
+<h2>Programming</h2>
 
-Welcome to your new app.
+<div class="flex-row-s-s gap-c">
+	@foreach (IntType type in Enum.GetValues<IntType>())
+	{
+		<RadioButton Name="int_type"
+					 Value="@(type.ToString())"
+					 Selected="@(calculator.SelectedType.ToString())"
+					 OnChange="@(() => calculator.UpdateType(type))" />
+	}
+</div>
+
+<p>DEC: @(calculator.PreviousValue)</p>
+<p>HEX: @(Bell.GetHexidecimal(calculator.SelectedType, calculator.PreviousValue))</p>
+<p>BIN: @(Bell.GetBinary(calculator.SelectedType, calculator.PreviousValue))</p>
+
+
+<ByteDisplay CurrentIntType="@(calculator.SelectedType)" />
+
+<hr />
+<h2>Calculation ZONE</h2>
+<div class="flex-row-s-s gap-a operators">
+	<OperatorButton Operator="@(OperatorType.Equal)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">=</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.Add)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">+</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.Subtract)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">-</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.Multiply)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">×</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.Divide)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">÷</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.Mod)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">%</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.LeftShift)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">«</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.RightShift)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">»</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.AND)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">&</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.OR)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">|</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.NOT)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">~</OperatorButton>
+	<OperatorButton Operator="@(OperatorType.XOR)"
+					SelectOperator="@(SelectOperator)"
+					Selected="@(calculator.CurrentOperator)">^</OperatorButton>
+</div>
+
+@if (calculator.CurrentOperator == OperatorType.NOT)
+{
+	<p>asdasjpd</p>
+}
+else
+{
+	<input type="number"
+		   value="@(calculator.CurrentInput)"
+		   @oninput="@(ReadInput)" />
+}
+<button @onclick="@(calculator.RunCalculation)">@(calculator.CurrentOperator)</button>
+
+
+@code {
+	private Calculator calculator = new Calculator();
+
+	private void ReadInput(ChangeEventArgs e)
+	{
+		string newInput = e.Value?.ToString() ?? "0";
+		if (newInput.Length > 0)
+			calculator.UpdateInput(newInput);
+	}
+
+	private void SelectOperator(OperatorType newOperator)
+	{
+		calculator.UpdateOperator(newOperator);
+	}
+}
