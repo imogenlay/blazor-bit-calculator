@@ -1,10 +1,10 @@
 ﻿<p>Size: @GetBytes() byte(s)</p>
 
 @code {
-	[Parameter] public IntType CurrentIntType { get; set; }
+	[Parameter] public IntegerSize CurrentIntegerSize { get; set; }
 
 	private string GetBytes()
 	{
-		return CurrentIntType.ToString();
+		return CurrentIntegerSize.ToString();
 	}
 }

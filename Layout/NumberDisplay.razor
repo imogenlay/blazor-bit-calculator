@@ -1,0 +1,16 @@
+﻿<input type="number"
+	   value="@(CurrentInput)"
+	   @oninput="@(OnInput)" />
+
+<div class="flex-col-s-s">
+	<p>DEC: @(PreviousValue)</p>
+	<p>HEX: @(Bell.GetHexidecimal(CurrentIntegerSize, PreviousValue))</p>
+	<p>BIN: @(Bell.GetBinary(CurrentIntegerSize, PreviousValue))</p>
+</div>
+
+@code {
+	[Parameter] public string CurrentInput { get; set; } = "";
+	[Parameter] public object PreviousValue { get; set; } = 0;
+	[Parameter] public IntegerSize CurrentIntegerSize { get; set; }
+	[Parameter] public EventCallback<ChangeEventArgs> OnInput { get; set; }
+}

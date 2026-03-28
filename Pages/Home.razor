@@ -1,79 +1,50 @@
 ﻿@page "/"
-@using BitCalculator.Layout.RadioButton
 @using BitCalculator
 
 <h2>Programming</h2>
 
-<div class="flex-row-s-s gap-c">
-	@foreach (IntType type in Enum.GetValues<IntType>())
-	{
-		<RadioButton Name="int_type"
-					 Value="@(type.ToString())"
-					 Selected="@(calculator.SelectedType.ToString())"
-					 OnChange="@(() => calculator.UpdateType(type))" />
-	}
-</div>
+<article class="flex-row-s-s gap-d">
+	<div class="flex-spread">
+		<NumberDisplay CurrentInput="@(calculator.CurrentInput)"
+					   PreviousValue="@(calculator.PreviousValue)"
+					   CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
+					   OnInput="@(ReadInput)" />
 
-<p>DEC: @(calculator.PreviousValue)</p>
-<p>HEX: @(Bell.GetHexidecimal(calculator.SelectedType, calculator.PreviousValue))</p>
-<p>BIN: @(Bell.GetBinary(calculator.SelectedType, calculator.PreviousValue))</p>
+		<hr />
+		<h3>Calculation ZONE</h3>
+		<div class="flex-row-s-s gap-a ">
+			@foreach (OperatorType type in Enum.GetValues<OperatorType>())
+			{
+				<OperatorButton Operator="@(type)"
+								SelectOperator="@(SelectOperator)"
+								Selected="@(calculator.CurrentOperator)">@(Operations.GetButtonTextForOperator(type))</OperatorButton>
+			}
+		</div>
 
-
-<ByteDisplay CurrentIntType="@(calculator.SelectedType)" />
-
-<hr />
-<h2>Calculation ZONE</h2>
-<div class="flex-row-s-s gap-a operators">
-	<OperatorButton Operator="@(OperatorType.Equal)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">=</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.Add)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">+</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.Subtract)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">-</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.Multiply)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">×</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.Divide)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">÷</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.Mod)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">%</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.LeftShift)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">«</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.RightShift)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">»</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.AND)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">&</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.OR)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">|</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.NOT)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">~</OperatorButton>
-	<OperatorButton Operator="@(OperatorType.XOR)"
-					SelectOperator="@(SelectOperator)"
-					Selected="@(calculator.CurrentOperator)">^</OperatorButton>
-</div>
-
-@if (calculator.CurrentOperator == OperatorType.NOT)
-{
-	<p>asdasjpd</p>
-}
-else
-{
-	<input type="number"
-		   value="@(calculator.CurrentInput)"
-		   @oninput="@(ReadInput)" />
-}
-<button @onclick="@(calculator.RunCalculation)">@(calculator.CurrentOperator)</button>
-
+		@if (calculator.CurrentOperator == OperatorType.NOT)
+		{
+			<p>NOT</p>
+		}
+		else
+		{
+			<input type="number"
+				   value="@(calculator.CurrentInput)"
+				   @oninput="@(ReadInput)" />
+		}
+		<button @onclick="@(calculator.RunCalculation)">@(calculator.CurrentOperator)</button>
+	</div>
+	<div>
+		<div class="integer-sizes">
+			@foreach (IntegerSize size in Enum.GetValues<IntegerSize>())
+			{
+				<RadioButton Name="int_type"
+							 Value="@(size.ToString())"
+							 Selected="@(calculator.CurrentIntegerSize.ToString())"
+							 OnChange="@(() => calculator.UpdateType(size))" />
+			}
+		</div>
+	</div>
+</article>
 
 @code {
 	private Calculator calculator = new Calculator();

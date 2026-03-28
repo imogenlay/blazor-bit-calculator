@@ -1,6 +1,6 @@
 ﻿namespace BitCalculator;
 
-public enum IntType : byte
+public enum IntegerSize : byte
 {
 	int8,
 	uint8,

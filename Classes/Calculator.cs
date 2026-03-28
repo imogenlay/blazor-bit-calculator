@@ -2,125 +2,95 @@
 
 public class Calculator
 {
-	public IntType SelectedType { get; private set; }
-	public object PreviousValue { get; private set; }
+	public IntegerSize CurrentIntegerSize { get; private set; }
 	public OperatorType CurrentOperator { get; private set; }
+	public object PreviousValue { get; private set; }
 	public string CurrentInput { get; private set; }
-
-	public bool TypeIsSigned => (int)SelectedType % 2 == 0;
 
 	public Calculator()
 	{
-		SelectedType = IntType.uint8;
-		PreviousValue = byte.MinValue;
+		CurrentIntegerSize = IntegerSize.int32;
+		PreviousValue = 0;
 		CurrentOperator = OperatorType.Add;
 		CurrentInput = "0";
 	}
 
-	public void UpdateInput(string newInput)
-	{
-		CurrentInput = newInput;
-	}
+	public void UpdateInput(string newInput) => CurrentInput = newInput;
+	public void UpdateOperator(OperatorType newOperator) => CurrentOperator = newOperator;
 
-	public void UpdateOperator(OperatorType newOperator)
+	public void UpdateType(IntegerSize newIntegerSize)
 	{
-		CurrentOperator = newOperator;
-	}
-
-	public void UpdateType(IntType newType)
-	{
-		SelectedType = newType;
+		CurrentIntegerSize = newIntegerSize;
 
 		if (PreviousValue is sbyte or short or int or long)
 		{
 			// Cast previous signed value to new value type.
 			long signedValue = Convert.ToInt64(PreviousValue);
-			PreviousValue = CastToType(signedValue);
+			PreviousValue = Operations.CastToType(CurrentIntegerSize, signedValue);
 		}
 		else
 		{
 			// Cast previous unsigned value to new value type. 
 			ulong unsignedValue = Convert.ToUInt64(PreviousValue);
-			PreviousValue = CastToType(unsignedValue);
+			PreviousValue = Operations.CastToType(CurrentIntegerSize, unsignedValue);
 		}
 	}
 
 	public void RunCalculation()
 	{
-		if (TypeIsSigned)
+		if (CurrentIntegerSize == IntegerSize.uint64)
 		{
-			if (!long.TryParse(CurrentInput, out long input)) return;
-			long prev = Convert.ToInt64(PreviousValue);
+			// do ulong
+			if (!ulong.TryParse(CurrentInput, out ulong uvalue)) return;
 
-			long result = unchecked(CurrentOperator switch
-			{
-				OperatorType.Equal => input,
-				OperatorType.Add => prev + input,
-				OperatorType.Subtract => prev - input,
-				OperatorType.Multiply => prev * input,
-				OperatorType.Divide => prev / input,
-				OperatorType.Mod => prev % input,
-				OperatorType.LeftShift => prev << (int)input,
-				OperatorType.RightShift => prev >> (int)input,
-				OperatorType.AND => prev & input,
-				OperatorType.OR => prev | input,
-				OperatorType.NOT => ~prev,
-				OperatorType.XOR => prev ^ input,
-				_ => prev
-			});
-
-			PreviousValue = CastToType(result);
-		}
-		else
-		{
-			if (!ulong.TryParse(CurrentInput, out ulong input)) return;
+			// Unsigned long has to function differently due to the fact
+			// that it can have values that are outside the range of signed long.
 			ulong prev = Convert.ToUInt64(PreviousValue);
-
 			ulong result = unchecked(CurrentOperator switch
 			{
-				OperatorType.Equal => input,
-				OperatorType.Add => prev + input,
-				OperatorType.Subtract => prev - input,
-				OperatorType.Multiply => prev * input,
-				OperatorType.Divide => prev / input,
-				OperatorType.Mod => prev % input,
-				OperatorType.LeftShift => prev << (int)input,
-				OperatorType.RightShift => prev >> (int)input,
-				OperatorType.AND => prev & input,
-				OperatorType.OR => prev | input,
+				OperatorType.Equal => uvalue,
+				OperatorType.Add => prev + uvalue,
+				OperatorType.Subtract => prev - uvalue,
+				OperatorType.Multiply => prev * uvalue,
+				OperatorType.Divide => prev / uvalue,
+				OperatorType.Mod => prev % uvalue,
+				OperatorType.LeftShift => prev << (int)uvalue,
+				OperatorType.RightShift => prev >> (int)uvalue,
+				OperatorType.AND => prev & uvalue,
+				OperatorType.OR => prev | uvalue,
 				OperatorType.NOT => ~prev,
-				OperatorType.XOR => prev ^ input,
+				OperatorType.XOR => prev ^ uvalue,
 				_ => prev
 			});
 
-			PreviousValue = CastToType(result);
+			PreviousValue = Operations.CastToType(CurrentIntegerSize, result);
+
+			return;
+		}
+
+		if (long.TryParse(CurrentInput, out long value))
+		{
+			long prev = Convert.ToInt64(PreviousValue);
+			long result = unchecked(CurrentOperator switch
+			{
+				OperatorType.Equal => value,
+				OperatorType.Add => prev + value,
+				OperatorType.Subtract => prev - value,
+				OperatorType.Multiply => prev * value,
+				OperatorType.Divide => prev / value,
+				OperatorType.Mod => prev % value,
+				OperatorType.LeftShift => prev << (int)value,
+				OperatorType.RightShift => prev >> (int)value,
+				OperatorType.AND => prev & value,
+				OperatorType.OR => prev | value,
+				OperatorType.NOT => ~prev,
+				OperatorType.XOR => prev ^ value,
+				_ => prev
+			});
+
+			PreviousValue = Operations.CastToType(CurrentIntegerSize, result);
 		}
 	}
 
-	private object CastToType(long value) => SelectedType switch
-	{
-		IntType.int8 => unchecked((sbyte)value),
-		IntType.uint8 => unchecked((byte)value),
-		IntType.int16 => unchecked((short)value),
-		IntType.uint16 => unchecked((ushort)value),
-		IntType.int32 => unchecked((int)value),
-		IntType.uint32 => unchecked((uint)value),
-		IntType.int64 => value,
-		IntType.uint64 => unchecked((ulong)value),
-		_ => throw new ArgumentException("Unsupported type")
-	};
-
-	private object CastToType(ulong value) => SelectedType switch
-	{
-		IntType.int8 => unchecked((sbyte)value),
-		IntType.uint8 => unchecked((byte)value),
-		IntType.int16 => unchecked((short)value),
-		IntType.uint16 => unchecked((ushort)value),
-		IntType.int32 => unchecked((int)value),
-		IntType.uint32 => unchecked((uint)value),
-		IntType.int64 => unchecked((long)value),
-		IntType.uint64 => value,
-		_ => throw new ArgumentException("Unsupported type")
-	};
 
 }
