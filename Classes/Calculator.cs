@@ -20,7 +20,6 @@ public class Calculator
 	{
 		if (Int128.TryParse(newInput, out Int128 result))
 			PreviousValue = Operations.CastToType(CurrentIntegerSize, result);
-		PreviousValue = PreviousValue;
 	}
 	public void UpdateCurrentInput(string newInput)
 	{
@@ -50,7 +49,6 @@ public class Calculator
 			OperatorType.RightShift => b >> (int)a,
 			OperatorType.AND => b & a,
 			OperatorType.OR => b | a,
-			OperatorType.NOT => ~a,
 			OperatorType.XOR => b ^ a,
 			_ => b
 		});

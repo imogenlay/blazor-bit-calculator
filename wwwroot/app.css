@@ -8,10 +8,8 @@
   font-style: normal;
   font-synthesis: none;
   font-size: 1rem;
-  /*line-height: 1.5;*/
   text-decoration: none;
   border-radius: 0;
-  overflow-x: visible;
   scroll-behavior: smooth;
 }
 
@@ -71,6 +69,7 @@ section {
     0 4px 8px 0 #00000033,
     0 6px 20px 0 #00000033;
   padding: 1rem;
+  overflow-x: hidden;
 }
 
 hr {

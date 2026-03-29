@@ -20,7 +20,6 @@
 	{
 		byte newByte = (byte)(CurrentByte ^ (1 << offset));
 		ByteModifier byteModifier = new ByteModifier(newByte, BitOffset);
-		Console.WriteLine("CurrentByte   " + CurrentByte + "  | newByte " + newByte + "   offset " + offset);
 
 		ChangeEventArgs args = new();
 		args.Value = byteModifier;

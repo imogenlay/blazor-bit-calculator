@@ -4,22 +4,21 @@ public static class Operations
 {
 	public static string GetButtonTextForOperator(OperatorType operatorType)
 	{
-		switch (operatorType)
+		return operatorType switch
 		{
-			case OperatorType.Equal: return "=";
-			case OperatorType.Add: return "+";
-			case OperatorType.Subtract: return "-";
-			case OperatorType.Multiply: return "×";
-			case OperatorType.Divide: return "÷";
-			case OperatorType.Mod: return "%";
-			case OperatorType.LeftShift: return "«";
-			case OperatorType.RightShift: return "»";
-			case OperatorType.AND: return "&";
-			case OperatorType.OR: return "|";
-			case OperatorType.NOT: return "~";
-			case OperatorType.XOR: return "^";
-			default: return "Unknown";
-		}
+			OperatorType.Equal => "=",
+			OperatorType.Add => "+",
+			OperatorType.Subtract => "-",
+			OperatorType.Multiply => "×",
+			OperatorType.Divide => "÷",
+			OperatorType.Mod => "%",
+			OperatorType.LeftShift => "«",
+			OperatorType.RightShift => "»",
+			OperatorType.AND => "&",
+			OperatorType.OR => "|",
+			OperatorType.XOR => "^",
+			_ => "Unknown"
+		};
 	}
 
 	public static Int128 CastToType(IntegerSize integerSize, Int128 value) => integerSize switch
@@ -37,19 +36,18 @@ public static class Operations
 
 	public static bool IsOutOfBounds(IntegerSize integerSize, Int128 value)
 	{
-		switch (integerSize)
+		return integerSize switch
 		{
-			case IntegerSize.int8: return value < sbyte.MinValue || value > sbyte.MaxValue;
-			case IntegerSize.uint8: return value < byte.MinValue || value > byte.MaxValue;
-			case IntegerSize.int16: return value < short.MinValue || value > short.MaxValue;
-			case IntegerSize.uint16: return value < ushort.MinValue || value > ushort.MaxValue;
-			case IntegerSize.int32: return value < int.MinValue || value > int.MaxValue;
-			case IntegerSize.uint32: return value < uint.MinValue || value > uint.MaxValue;
-			case IntegerSize.int64: return value < long.MinValue || value > long.MaxValue;
-			case IntegerSize.uint64: return value < ulong.MinValue || value > ulong.MaxValue;
-			default:
-				return false;
-		}
+			IntegerSize.int8 => value < sbyte.MinValue || value > sbyte.MaxValue,
+			IntegerSize.uint8 => value < byte.MinValue || value > byte.MaxValue,
+			IntegerSize.int16 => value < short.MinValue || value > short.MaxValue,
+			IntegerSize.uint16 => value < ushort.MinValue || value > ushort.MaxValue,
+			IntegerSize.int32 => value < int.MinValue || value > int.MaxValue,
+			IntegerSize.uint32 => value < uint.MinValue || value > uint.MaxValue,
+			IntegerSize.int64 => value < long.MinValue || value > long.MaxValue,
+			IntegerSize.uint64 => value < ulong.MinValue || value > ulong.MaxValue,
+			_ => false
+		};
 	}
 
 	public static Int128 Increment(IntegerSize integerSize, Int128 value) => CastToType(integerSize, value + 1);
@@ -57,35 +55,33 @@ public static class Operations
 
 	public static Int128 GetMin(IntegerSize integerSize)
 	{
-		switch (integerSize)
+		return integerSize switch
 		{
-			case IntegerSize.int8: return sbyte.MinValue;
-			case IntegerSize.uint8: return byte.MinValue;
-			case IntegerSize.int16: return short.MinValue;
-			case IntegerSize.uint16: return ushort.MinValue;
-			case IntegerSize.int32: return int.MinValue;
-			case IntegerSize.uint32: return uint.MinValue;
-			case IntegerSize.int64: return long.MinValue;
-			case IntegerSize.uint64: return ulong.MinValue;
-			default:
-				return 0;
-		}
+			IntegerSize.int8 => sbyte.MinValue,
+			IntegerSize.uint8 => byte.MinValue,
+			IntegerSize.int16 => short.MinValue,
+			IntegerSize.uint16 => ushort.MinValue,
+			IntegerSize.int32 => int.MinValue,
+			IntegerSize.uint32 => uint.MinValue,
+			IntegerSize.int64 => long.MinValue,
+			IntegerSize.uint64 => ulong.MinValue,
+			_ => 0
+		};
 	}
 
 	public static Int128 GetMax(IntegerSize integerSize)
 	{
-		switch (integerSize)
+		return integerSize switch
 		{
-			case IntegerSize.int8: return sbyte.MaxValue;
-			case IntegerSize.uint8: return byte.MaxValue;
-			case IntegerSize.int16: return short.MaxValue;
-			case IntegerSize.uint16: return ushort.MaxValue;
-			case IntegerSize.int32: return int.MaxValue;
-			case IntegerSize.uint32: return uint.MaxValue;
-			case IntegerSize.int64: return long.MaxValue;
-			case IntegerSize.uint64: return ulong.MaxValue;
-			default:
-				return 0;
-		}
+			IntegerSize.int8 => sbyte.MaxValue,
+			IntegerSize.uint8 => byte.MaxValue,
+			IntegerSize.int16 => short.MaxValue,
+			IntegerSize.uint16 => ushort.MaxValue,
+			IntegerSize.int32 => int.MaxValue,
+			IntegerSize.uint32 => uint.MaxValue,
+			IntegerSize.int64 => long.MaxValue,
+			IntegerSize.uint64 => ulong.MaxValue,
+			_ => 0
+		};
 	}
 }

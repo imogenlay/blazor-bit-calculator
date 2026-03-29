@@ -1,9 +1,10 @@
 ﻿@page "/"
 @using BitCalculator
+@using System.Text
 
 <h2>Programming</h2>
-
-<article class="flex-row-s-s gap-d">
+<hr />
+<article class="calculator">
 	<div class="flex-spread">
 		<NumberDisplay CurrentInput="@(calculator.PreviousValue)"
 					   DisplayOutOfBoundsInput="@(false)"
@@ -42,16 +43,33 @@
 
 	private void ReadPreviousInput(ChangeEventArgs e)
 	{
-		string newInput = e.Value?.ToString() ?? "0";
-		if (newInput.Length > 0)
-			calculator.UpdatePreviousInput(newInput);
+		UpdateInputWith(e, calculator.UpdatePreviousInput);
 	}
 
 	private void ReadCurrentInput(ChangeEventArgs e)
 	{
+		UpdateInputWith(e, calculator.UpdateCurrentInput);
+	}
+
+	private void UpdateInputWith(ChangeEventArgs e, Action<string> action)
+	{
 		string newInput = e.Value?.ToString() ?? "0";
-		if (newInput.Length > 0)
-			calculator.UpdateCurrentInput(newInput);
+		StringBuilder sb = new();
+		for (int i = 0; i < newInput.Length; i++)
+		{
+			if (newInput[i] == '-')
+			{
+				if (sb.Length == 0)
+					sb.Append('-');
+				continue;
+			}
+
+			if (newInput[i] >= '0' && newInput[i] <= '9')
+				sb.Append(newInput[i]);
+		}
+
+		if (sb.Length > 0)
+			action(sb.ToString());
 	}
 
 	private void SelectOperator(OperatorType newOperator)

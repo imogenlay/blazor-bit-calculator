@@ -12,6 +12,5 @@ public enum OperatorType : byte
 	RightShift,
 	AND,
 	OR,
-	NOT,
 	XOR,
 }

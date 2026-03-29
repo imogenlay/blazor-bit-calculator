@@ -3,18 +3,11 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.number-input-parent {
-  button {
-    padding: 0.25rem 0.5rem;
-    min-width: 2.5rem;
-
-    border: none;
-    font-size: 1.5rem;
-  }
-
+.number-display {
   input {
     margin: 8px 0;
     padding: 0.25rem;
+    width: 100%;
 
     border: none;
     font-size: 1.5rem;
@@ -35,46 +28,28 @@
       background-color: var(--clr-red-light);
     }
   }
-}
 
-.copy-text {
-  cursor: pointer;
-  width: 100%;
-  user-select: none;
+  div {
+    flex-wrap: wrap;
 
-  &:hover {
-    background-color: var(--clr-accent-1);
-  }
+    button {
+      padding: 0.25rem 0.5rem;
+      min-width: 2.5rem;
 
-  &:active {
-    background-color: var(--clr-accent-2);
-  }
-}
-
-.operator-buttons {
-  margin-top: 1rem;
-}
-
-.operator-button {
-  min-width: 3rem;
-  min-height: 3rem;
-  padding: 0.5rem;
-  border: none;
-  font-size: 1.25rem;
-  background-color: var(--clr-accent-5);
-
-  &:hover {
-    background-color: var(--clr-accent-4);
-  }
-
-  &:active {
-    background-color: var(--clr-accent-6);
+      border: none;
+      font-size: 1.5rem;
+    }
   }
 }
 
 .byte-array {
   display: grid;
   grid-template-columns: repeat(2, max-content);
+
+  @media screen and (max-width: 720px) {
+    grid-template-columns: max-content;
+  }
+
   gap: 0.25rem 1rem;
   padding: 0.5rem 0;
 
@@ -109,11 +84,16 @@
     }
 
     button {
-      font-size: 1.25rem;
       color: black;
-      width: 2rem;
-      height: 2rem;
+      width: 1.5rem;
+      height: 1.5rem;
       border: 1px solid var(--clr-grey-3);
+
+      @media screen and (min-width: 400px) {
+        font-size: 1.25rem;
+        width: 2rem;
+        height: 2rem;
+      }
 
       background-color: white;
 
@@ -125,5 +105,51 @@
         background-color: var(--clr-accent-2);
       }
     }
+  }
+}
+
+.copy-text {
+  cursor: pointer;
+  width: 100%;
+  user-select: none;
+  overflow-wrap: break-word;
+
+  &:hover {
+    background-color: var(--clr-accent-1);
+  }
+
+  &:active {
+    background-color: var(--clr-accent-2);
+  }
+}
+
+.operator-buttons {
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.operator-button {
+  min-width: 3rem;
+  min-height: 3rem;
+  padding: 0.5rem;
+  border: none;
+  font-size: 1.25rem;
+  background-color: var(--clr-accent-5);
+
+  &:hover {
+    background-color: var(--clr-accent-4);
+  }
+
+  &:active {
+    background-color: var(--clr-accent-6);
+  }
+}
+
+.calculator {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  @media screen and (max-width: 1200px) {
+    flex-direction: column-reverse;
   }
 }
