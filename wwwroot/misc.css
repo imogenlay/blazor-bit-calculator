@@ -12,21 +12,23 @@
     border: none;
     font-size: 1.5rem;
 
-    background-color: var(--clr-accent-1);
+    background-color: var(--clr-tint);
+    &:focus,
     &:hover {
-      background-color: var(--clr-accent-2);
-    }
-    &:focus {
-      background-color: var(--clr-accent-2);
+      background-color: var(--clr-tint-press);
     }
 
     &.oob {
       &:focus {
-        outline: 2px solid red;
+        outline: 2px solid var(--clr-red);
       }
 
       background-color: var(--clr-red-light);
     }
+  }
+
+  .number-buttons {
+    margin-bottom: 0.25rem;
   }
 
   div {
@@ -37,7 +39,6 @@
       min-width: 2.5rem;
 
       border: none;
-      font-size: 1.5rem;
     }
   }
 }
@@ -57,11 +58,10 @@
     position: relative;
     display: grid;
     grid-template-columns: repeat(9, max-content);
-    border: 2px solid var(--clr-accent-5);
+    border: 1px solid var(--clr-tint-hover);
 
     aside {
-      color: white;
-      background-color: var(--clr-accent-5);
+      background-color: var(--clr-tint-hover);
       position: absolute;
       bottom: -0.75rem;
       right: -0.75rem;
@@ -79,15 +79,14 @@
     }
 
     div {
-      width: 1px;
-      background-color: var(--clr-grey-3);
+      width: 2px;
+      background-color: var(--clr-tint);
     }
 
     button {
-      color: black;
       width: 1.5rem;
       height: 1.5rem;
-      border: 1px solid var(--clr-grey-3);
+      border: 1px solid var(--clr-tint);
 
       @media screen and (min-width: 400px) {
         font-size: 1.25rem;
@@ -95,14 +94,14 @@
         height: 2rem;
       }
 
-      background-color: white;
+      background-color: var(--clr-next-base);
 
       &:hover {
-        background-color: var(--clr-accent-1);
+        background-color: var(--clr-next-hover);
       }
 
       &:active {
-        background-color: var(--clr-accent-2);
+        background-color: var(--clr-next-press);
       }
     }
   }
@@ -113,13 +112,14 @@
   width: 100%;
   user-select: none;
   overflow-wrap: break-word;
+  padding: 2px 4px;
 
   &:hover {
-    background-color: var(--clr-accent-1);
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
   &:active {
-    background-color: var(--clr-accent-2);
+    background-color: rgba(255, 255, 255, 0.2);
   }
 }
 
@@ -134,14 +134,14 @@
   padding: 0.5rem;
   border: none;
   font-size: 1.25rem;
-  background-color: var(--clr-accent-5);
+  background-color: var(--clr-tint);
 
   &:hover {
-    background-color: var(--clr-accent-4);
+    background-color: var(--clr-tint-hover);
   }
 
   &:active {
-    background-color: var(--clr-accent-6);
+    background-color: var(--clr-tint-press);
   }
 }
 

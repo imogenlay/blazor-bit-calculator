@@ -2,7 +2,7 @@
 	<input class="@(GetClass())"
 		   value="@(GetInput())" 
 		   @oninput="@(OnInput)" />
-	<div class="flex-row-s-c gap-b">
+	<div class="flex-row-s-c gap-b number-buttons">
 		<button @onclick="@(SetMin)">Min</button>
 		<button @onclick="@(Decrement)">-</button>
 		@if ((int)CurrentIntegerSize % 2 == 0)
@@ -11,12 +11,11 @@
 		}
 		<button @onclick="@(Increment)">+</button>
 		<button @onclick="@(SetMax)">Max</button>
-		<button @onclick="@(Not)">Not</button>
+		<button @onclick="@(Not)">~</button>
 	</div>
 </div>
 
 <div class="flex-col-s-s">
-	<p><b>VAL:&nbsp;</b>@(CurrentInput)</p>
 	<p @onclick="@(CopyDecimal)" class="copy-text    "><b>DEC:&nbsp;</b>@(Decimal)</p>
 	<p @onclick="@(CopyHexidecimal)" class="copy-text"><b>HEX:&nbsp;</b>@(Hexidecimal)</p>
 	<p @onclick="@(CopyBinary)" class="copy-text     "><b>BIN:&nbsp;</b>@(Binary)</p>

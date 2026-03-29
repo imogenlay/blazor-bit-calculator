@@ -1,5 +1,4 @@
 h1 {
-  color: white;
   font-size: 2rem;
   font-weight: bold;
   flex: 1;
@@ -28,15 +27,14 @@ b {
 
 button {
   cursor: pointer;
-  color: white;
-  background-color: var(--clr-accent-5);
+  background-color: var(--clr-tint);
   border: none;
 
   &:hover {
-    background-color: var(--clr-accent-4);
+    background-color: var(--clr-tint-hover);
   }
 
   &:active {
-    background-color: var(--clr-accent-6);
+    background-color: var(--clr-tint-press);
   }
 }

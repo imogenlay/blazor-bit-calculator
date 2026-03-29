@@ -11,6 +11,7 @@
   text-decoration: none;
   border-radius: 0;
   scroll-behavior: smooth;
+  color: white;
 }
 
 :root {
@@ -27,15 +28,26 @@
   --clr-grey-7: rgb(075, 075, 075);
   --clr-grey-8: rgb(050, 050, 050);
   --clr-grey-9: rgb(025, 025, 025);
-  --clr-background: #ebf7ff;
-  --clr-accent-1: #ddf6ff;
-  --clr-accent-2: #b8ecff;
-  --clr-accent-3: #92e2ff;
-  --clr-accent-4: #66c2ff;
-  --clr-accent-5: #13a0ff;
-  --clr-accent-6: #0b86d7;
-  --clr-red: #ff3d37;
-  --clr-red-light: #ff7672;
+  /*--clr-accent-1: rgb(235, 247, 255);
+  --clr-accent-2: rgb(221, 246, 255);
+  --clr-accent-3: rgb(184, 236, 255);
+  --clr-accent-4: rgb(146, 226, 255);
+  --clr-accent-5: rgb(102, 194, 255);
+  --clr-accent-6: rgb(019, 160, 255);
+  --clr-accent-7: rgb(011, 134, 215);*/
+  --clr-background: rgb(30, 20, 36);
+  --clr-section: rgb(65, 32, 89);
+
+  --clr-tint: rgb(139, 74, 185);
+  --clr-tint-hover: rgb(172, 102, 221);
+  --clr-tint-press: rgb(116, 60, 157);
+
+  --clr-next-base: rgb(85, 0, 150);
+  --clr-next-hover: rgb(111, 0, 197);
+  --clr-next-press: rgb(61, 0, 107);
+
+  --clr-red: #e34668;
+  --clr-red-light: #723554;
 }
 
 html,
@@ -43,7 +55,6 @@ body,
 main {
   width: 100vw;
   min-height: 100vh;
-  color: var(--clr-grey-8);
   background-color: var(--clr-background);
 }
 
@@ -57,14 +68,14 @@ main {
 nav {
   width: 100vw;
   height: 3rem;
-  background-color: var(--clr-accent-5);
+  background-color: var(--clr-section);
   padding: 0 var(--inset);
 }
 
 section {
   margin: 0 var(--inset);
   flex: 1;
-  background-color: white;
+  background-color: var(--clr-section);
   box-shadow:
     0 4px 8px 0 #00000033,
     0 6px 20px 0 #00000033;
@@ -73,8 +84,8 @@ section {
 }
 
 hr {
-  margin: 0.5rem 0 1rem 0;
-  border: 1px solid var(--clr-accent-4);
+  margin: 1rem 0;
+  border: 1px solid white;
 }
 
 .loading-progress {
