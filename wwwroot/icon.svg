@@ -14,79 +14,19 @@
   <g
      id="layer1">
     <rect
-       style="fill:#5fb0ff;stroke:none;stroke-width:6.48129;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill;fill-opacity:1"
+       style="fill:#8100ff;stroke:none;stroke-width:6.48129;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill;fill-opacity:1"
        id="rect1"
        width="52.916668"
        height="52.916668"
        x="0"
        y="-4.4408921e-16" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:15.0111;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill"
+    <path
        id="rect2"
-       width="22.489584"
-       height="22.489584"
-       x="2.6458333"
-       y="2.6458333" />
-    <rect
        style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:15.0111;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill"
-       id="rect2-8"
-       width="22.489584"
-       height="22.489584"
-       x="27.78125"
-       y="2.6458333" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:15.0111;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill"
-       id="rect2-1"
-       width="22.489584"
-       height="22.489584"
-       x="2.6458333"
-       y="27.78125" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:15.0111;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill"
-       id="rect2-8-7"
-       width="22.489584"
-       height="22.489584"
-       x="27.78125"
-       y="27.78125" />
-    <text
-       xml:space="preserve"
-       style="font-size:16.9333px;line-height:1;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#5fb0ff;fill-opacity:1;stroke:none;stroke-width:5.29167;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill"
-       x="13.857545"
-       y="19.744507"
-       id="text2"><tspan
-         style="font-size:16.9333px;fill:#5fb0ff;fill-opacity:1;stroke-width:5.29167"
-         x="13.857545"
-         y="19.744507"
-         id="tspan3">0</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:16.9333px;line-height:1;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#5fb0ff;fill-opacity:1;stroke:none;stroke-width:5.29167;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill"
-       x="39.596542"
-       y="19.63702"
-       id="text2-7"><tspan
-         style="font-size:16.9333px;fill:#5fb0ff;fill-opacity:1;stroke-width:5.29167"
-         x="39.596542"
-         y="19.63702"
-         id="tspan3-6">1</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:16.9333px;line-height:1;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#5fb0ff;fill-opacity:1;stroke:none;stroke-width:5.29167;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill"
-       x="38.983345"
-       y="45.243729"
-       id="text2-7-9"><tspan
-         style="font-size:16.9333px;fill:#5fb0ff;fill-opacity:1;stroke-width:5.29167"
-         x="38.983345"
-         y="45.243729"
-         id="tspan3-6-5">F</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:16.9333px;line-height:1;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#5fb0ff;fill-opacity:1;stroke:none;stroke-width:5.29167;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill"
-       x="13.857545"
-       y="44.879925"
-       id="text2-76"><tspan
-         style="font-size:16.9333px;fill:#5fb0ff;fill-opacity:1;stroke-width:5.29167"
-         x="13.857545"
-         y="44.879925"
-         id="tspan3-1">0</tspan></text>
+       d="M 2.6458333 2.6458333 L 2.6458333 25.135416 L 25.135416 25.135416 L 25.135416 2.6458333 L 2.6458333 2.6458333 z M 27.781249 2.6458333 L 27.781249 25.135416 L 50.270832 25.135416 L 50.270832 2.6458333 L 27.781249 2.6458333 z M 2.6458333 27.781249 L 2.6458333 50.270832 L 25.135416 50.270832 L 25.135416 27.781249 L 2.6458333 27.781249 z M 27.781249 27.781249 L 27.781249 50.270832 L 50.270832 50.270832 L 50.270832 27.781249 L 27.781249 27.781249 z " />
+    <path
+       id="text2"
+       style="font-size:16.9333px;line-height:1;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#8100ff;fill-opacity:1;stroke:#ead3ff;stroke-width:1.05833331;stroke-linecap:round;stroke-miterlimit:5;paint-order:markers stroke fill;stroke-opacity:1;stroke-dasharray:none"
+       d="M 13.849284 7.5406248 C 12.542906 7.5406248 11.583788 7.9705744 10.97194 8.8304686 C 10.360092 9.6903627 10.054166 11.005016 10.054166 12.774414 L 10.054166 14.816666 C 10.076215 16.508894 10.395921 17.782206 11.013281 18.636588 C 11.630641 19.485458 12.581491 19.909895 13.86582 19.909895 C 15.166686 19.909895 16.123048 19.474434 16.734895 18.603515 C 17.346743 17.732597 17.652669 16.401407 17.652669 14.609961 L 17.652669 12.625586 C 17.636132 10.894773 17.321939 9.6159487 16.710091 8.7891274 C 16.098243 7.956794 15.144637 7.5406248 13.849284 7.5406248 z M 40.630077 7.5406248 L 36.247916 9.1860024 L 36.247916 10.575065 L 39.331965 9.4423175 L 39.331965 19.637044 L 40.869856 19.637044 L 40.869856 7.5406248 L 40.630077 7.5406248 z M 13.849284 8.7973956 C 14.63752 8.7973956 15.213542 9.095053 15.577343 9.6903644 C 15.941145 10.280164 16.123047 11.222745 16.123047 12.518099 L 16.123047 15.023372 C 16.10651 16.28014 15.913584 17.200674 15.54427 17.784961 C 15.180469 18.369248 14.620983 18.661393 13.86582 18.661393 C 13.099632 18.661393 12.526366 18.352711 12.146028 17.735351 C 11.771203 17.112479 11.583789 16.150605 11.583789 14.849739 L 11.583789 12.402343 C 11.594813 11.178648 11.779471 10.271895 12.13776 9.6820961 C 12.496049 9.092297 13.066559 8.7973956 13.849284 8.7973956 z M 13.849284 32.676041 C 12.542906 32.676041 11.583788 33.105991 10.97194 33.965885 C 10.360092 34.825779 10.054166 36.140432 10.054166 37.90983 L 10.054166 39.952082 C 10.076215 41.64431 10.395921 42.917622 11.013281 43.772004 C 11.630641 44.620874 12.581491 45.045312 13.86582 45.045312 C 15.166686 45.045312 16.123048 44.60985 16.734895 43.738931 C 17.346743 42.868013 17.652669 41.536823 17.652669 39.745377 L 17.652669 37.761002 C 17.636132 36.030189 17.321939 34.751365 16.710091 33.924544 C 16.098243 33.09221 15.144637 32.676041 13.849284 32.676041 z M 35.700662 33.205208 L 35.700662 45.243749 L 37.288162 45.243749 L 37.288162 39.927278 L 42.34005 39.927278 L 42.34005 38.629166 L 37.288162 38.629166 L 37.288162 34.511588 L 43.158605 34.511588 L 43.158605 33.205208 L 35.700662 33.205208 z M 13.849284 33.932812 C 14.63752 33.932812 15.213542 34.230469 15.577343 34.82578 C 15.941145 35.41558 16.123047 36.358161 16.123047 37.653515 L 16.123047 40.158788 C 16.10651 41.415557 15.913584 42.33609 15.54427 42.920377 C 15.180469 43.504664 14.620983 43.796809 13.86582 43.796809 C 13.099632 43.796809 12.526366 43.488127 12.146028 42.870767 C 11.771203 42.247895 11.583789 41.286021 11.583789 39.985155 L 11.583789 37.53776 C 11.594813 36.314064 11.779471 35.407311 12.13776 34.817512 C 12.496049 34.227713 13.066559 33.932812 13.849284 33.932812 z " />
   </g>
 </svg>
