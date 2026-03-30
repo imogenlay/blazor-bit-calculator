@@ -2,12 +2,13 @@
 @inject IJSRuntime JS
 
 <nav class="flex-row-s-c gap-b">
-	<h1>Bit Calculator</h1>
+	<h1>Bit&nbsp;Calculator</h1>
 
 	<div style="background: rebeccapurple;" @onclick="@(SetThemeNight)" />
 	<div style="background: pink;" @onclick="@(SetThemePastel)" />
 	<div style="background: blue;" @onclick="@(SetThemeBlue)" />
 	<div style="background: hotpink;" @onclick="@(SetThemeK)" />
+	<div style="background: grey;" @onclick="@(SetThemeGreyscale)" />
 
 </nav>
 
@@ -28,11 +29,11 @@
 ");
 
 	private async Task SetThemePastel() => await ThemeTime( @"
-  --clr-back: #cdb4db;
-  --clr-main: #ffc8e4;
-  --clr-input: #ffa4c5;
-  --clr-button: #90c9ff;
-  --clr-bit: #b3dcff;
+  --clr-back: #c39bda;
+  --clr-main: #ffb8dd;
+  --clr-input: #ff8fb8;
+  --clr-button: #77bdff;
+  --clr-bit: #a2d4ff;
   --clr-error: #ff9b9b;
 ");
 
@@ -44,17 +45,24 @@
   --clr-bit: #559eff;
   --clr-error: #cc5974;
 ");
-
+	
 	private async Task SetThemeK() => await ThemeTime(@"
   --clr-back: #2d3047;
   --clr-main: #c32187;
-  --clr-input: #e2367e;
+  --clr-input: #ff62a3;
   --clr-button: #89cc5d;
-  --clr-bit: #c25dc4;
-  --clr-error: #cf302a;
+  --clr-bit: #29cb44;
+  --clr-error: #ff524c;
 ");
 
-	
+	private async Task SetThemeGreyscale() => await ThemeTime(@"
+  --clr-back: #000000;
+  --clr-main: #434343;
+  --clr-input: #6f6f6f;
+  --clr-button: #9c9c9c;
+  --clr-bit: #9a9a9a;
+  --clr-error: #7a5e5e;
+");
 
 	private async Task ThemeTime(string themeInput)
 	{
