@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using BitCalculator
+@using BitCalculator.Layout
 @using System.Text
 
 <article class="calculator">
@@ -23,7 +24,7 @@
 			}
 		</div>
 	</div>
-	<div>
+	<div class="flex-col-s-s">
 		<div class="integer-size-selection">
 			@foreach (IntegerSize size in Enum.GetValues<IntegerSize>())
 			{
@@ -33,11 +34,25 @@
 							 OnChange="@(() => calculator.UpdateType(size))" />
 			}
 		</div>
+		<hr />
+		<div class="flex-col-s-s history">
+			<button @onclick="@(ToggleHistory)">Toggle History</button>
+			<div class="@(HistoryToggleClass)">
+				@for (int i = calculationHistory.Count - 1; i >= 0; i--)
+				{
+					<p>@(calculationHistory[i])</p>
+				}
+			</div>
+		</div>
 	</div>
 </article>
 
 @code {
-	private Calculator calculator = new Calculator();
+	private readonly Calculator calculator = new();
+	private readonly List<string> calculationHistory = new();
+	private bool showHistory = true;
+
+	private string HistoryToggleClass => "list " + (showHistory ? "active" : "inactive");
 
 	private void ReadPreviousInput(ChangeEventArgs e)
 	{
@@ -74,5 +89,22 @@
 	{
 		calculator.UpdateOperator(newOperator);
 		calculator.RunCalculation();
+		AppendHistory();
+	}
+
+	private void AppendHistory()
+	{
+		if (showHistory)
+		{
+			calculationHistory.Add(calculator.PreviousValue.ToString());
+			if (calculationHistory.Count > 30)
+				calculationHistory.RemoveRange(0, calculationHistory.Count - 30);
+		}
+	}
+
+	private void ToggleHistory()
+	{
+		calculationHistory.Clear();
+		showHistory = !showHistory;
 	}
 }

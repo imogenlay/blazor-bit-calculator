@@ -1,0 +1,9 @@
+﻿<p @onclick="@(Copy)" class="value-reader">
+	<span style="white-space: nowrap"><img src="./copy.svg" /><b>@(Prefix):&nbsp;</b></span>@(Text)
+</p>
+
+@code {
+	[Parameter] public string Prefix { get; set; } = "";
+	[Parameter] public string Text { get; set; } = "";
+	[Parameter]	public EventCallback Copy { get; set; }
+}

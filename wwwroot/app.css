@@ -79,20 +79,25 @@ nav {
   background-color: var(--clr-main);
   padding: 0 var(--inset);
 
-  div {
-    width: 32px;
-    height: 32px;
+  button {
+    width: 30px;
+    height: 30px;
     border: 2px solid white;
     border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      filter: brightness(1.2);
+    }
   }
 }
 
 section {
   padding: 1rem;
   margin: 0 var(--inset);
-  overflow-x: hidden;
   flex: 1;
+  display: flex;
   border-radius: 5px;
+  overflow: auto;
 
   background-color: var(--clr-main);
   box-shadow:
@@ -102,6 +107,7 @@ section {
 
 hr {
   margin: 1rem 0;
+  width: 100%;
   border: 1px solid white;
 }
 

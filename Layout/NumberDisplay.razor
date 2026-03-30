@@ -13,9 +13,9 @@
 </div>
 
 <div class="flex-col-s-c">
-	<p @onclick="@(CopyDecimal)" class="copy-text    "><img src="./copy.svg" /><b>DEC:&nbsp;</b>@(Decimal)</p>
-	<p @onclick="@(CopyHexidecimal)" class="copy-text"><img src="./copy.svg" /><b>HEX:&nbsp;</b>@(Hexidecimal)</p>
-	<p @onclick="@(CopyBinary)" class="copy-text     "><img src="./copy.svg" /><b>BIN:&nbsp;</b>@(Binary)</p>
+	<ValueReader Prefix="DEC" Text="@(Decimal)" Copy="@(CopyDecimal)" />
+	<ValueReader Prefix="HEX" Text="@(Hexidecimal)" Copy="@(CopyHexidecimal)" />
+	<ValueReader Prefix="BIN" Text="@(Binary)" Copy="@(CopyBinary)" /> 
 </div>
 
 <div class="byte-array">

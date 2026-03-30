@@ -3,13 +3,11 @@
 
 <nav class="flex-row-s-c gap-b">
 	<h1>Bit&nbsp;Calculator</h1>
-
-	<div style="background: rebeccapurple;" @onclick="@(SetThemeNight)" />
-	<div style="background: pink;" @onclick="@(SetThemePastel)" />
-	<div style="background: blue;" @onclick="@(SetThemeBlue)" />
-	<div style="background: hotpink;" @onclick="@(SetThemeK)" />
-	<div style="background: grey;" @onclick="@(SetThemeGreyscale)" />
-
+	<button style="background: rebeccapurple;" @onclick="@(SetThemeNight)" />
+	<button style="background: pink;" @onclick="@(SetThemePastel)" />
+	<button style="background: dodgerblue;" @onclick="@(SetThemeBlue)" />
+	<button style="background: hotpink;" @onclick="@(SetThemeK)" />
+	<button style="background: grey;" @onclick="@(SetThemeGreyscale)" />
 </nav>
 
 <section>
@@ -28,7 +26,7 @@
   --clr-error: #a6166c;
 ");
 
-	private async Task SetThemePastel() => await ThemeTime( @"
+	private async Task SetThemePastel() => await ThemeTime(@"
   --clr-back: #c39bda;
   --clr-main: #ffb8dd;
   --clr-input: #ff8fb8;
@@ -45,7 +43,7 @@
   --clr-bit: #559eff;
   --clr-error: #cc5974;
 ");
-	
+
 	private async Task SetThemeK() => await ThemeTime(@"
   --clr-back: #2d3047;
   --clr-main: #c32187;
@@ -77,9 +75,9 @@
 			.ToArray();
 
 		Dictionary<string, string> map = new();
-		for (int i = 0; i+1 < kvp.Length; i += 2)
-					map.Add(kvp[i], kvp[i + 1]);
-		
+		for (int i = 0; i + 1 < kvp.Length; i += 2)
+			map.Add(kvp[i], kvp[i + 1]);
+
 		return map;
 	}
 }

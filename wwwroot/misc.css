@@ -1,16 +1,81 @@
 .calculator {
+  height: 100%;
+
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  @media screen and (max-width: 1200px) {
+  flex: 1;
+}
+
+@media screen and (max-width: 1200px) {
+  .calculator {
     flex-direction: column-reverse;
+  }
+
+  .history .list {
+    max-height: 20vh;
   }
 }
 
 .integer-size-selection {
+  width: 13rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, max-content);
+  gap: 0 2rem;
   font-weight: bold;
+}
+
+.history {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: visible;
+
+  button {
+    width: 100%;
+    padding: 0.25rem;
+    font-weight: bold;
+  }
+
+  .list {
+    width: 100%;
+    min-height: 3rem;
+
+    padding: 0.25rem;
+    margin-top: 0.5rem;
+    border: 2px solid white;
+    border-radius: 5px;
+    overflow: auto;
+    flex: 1;
+    animation: flash 1s ease forwards;
+
+    &.inactive {
+      display: none;
+    }
+
+    & > :first-child {
+      font-weight: bold;
+      border-bottom: 1px solid white;
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      user-select: all;
+    }
+  }
+}
+
+@keyframes flash {
+  0% {
+    background-color: white;
+  }
+
+  100% {
+    background-color: var(--clr-bit);
+  }
 }
 
 .number-display {
@@ -21,7 +86,7 @@
 
     border: none;
     border-radius: 5px;
-    font-size: 1.5rem;
+    font-size: 1.35rem;
 
     background-color: var(--clr-input);
     &:hover {
@@ -47,40 +112,33 @@
 
   button {
     font-weight: bold;
-    border-radius: 5px;
     padding: 0.25rem 0.5rem;
     min-width: 2.5rem;
   }
 }
 
-.copy-text {
+.value-reader {
   cursor: pointer;
   width: 100%;
+  display: block;
   user-select: none;
   overflow-wrap: break-word;
+  word-break: break-all;
   padding: 2px 4px;
   border-radius: 5px;
   background-color: var(--clr-main);
 
-  img {
-    opacity: 0;
-    margin-right: 0.5rem;
+  span img {
+    margin-right: 0.25rem;
     height: 1rem;
-    align-self: center;
   }
 
   &:hover {
     background-color: var(--clr-main-soft);
-    img {
-      opacity: 1;
-    }
   }
 
   &:active {
     background-color: var(--clr-main-dark);
-    img {
-      opacity: 1;
-    }
   }
 }
 
@@ -111,7 +169,6 @@
     bottom: -0.75rem;
     right: -0.75rem;
     z-index: 1;
-    border-radius: 5px;
 
     width: 1.5rem;
     height: 1.5rem;
@@ -133,8 +190,9 @@
     width: 1.5rem;
     height: 1.5rem;
     border: 1px solid var(--clr-bit-array);
+    border-radius: 0;
 
-    @media screen and (min-width: 400px) {
+    @media screen and (min-width: 630px) and (min-height: 800px) {
       font-size: 1.25rem;
       width: 2rem;
       height: 2rem;
@@ -166,7 +224,6 @@
 
   button {
     font-weight: bold;
-    border-radius: 5px;
     padding: 0.25rem 0.5rem;
     min-width: 2.5rem;
     min-height: 2.5rem;

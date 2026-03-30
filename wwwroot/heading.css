@@ -3,8 +3,11 @@ h1 {
   font-weight: bold;
   flex: 1;
   color: var(--clr-button-text);
-  @media screen and (max-width: 600px) {
+  @media screen and (min-width: 400px) and (max-width: 600px) {
     font-size: 1.25rem;
+  }
+  @media screen and (max-width: 400px) {
+    display: none;
   }
 }
 
@@ -30,6 +33,7 @@ button {
   cursor: pointer;
   background-color: var(--clr-button);
   border: none;
+  border-radius: 5px;
 
   &:hover {
     background-color: var(--clr-button-soft);
