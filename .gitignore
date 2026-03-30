@@ -5,3 +5,7 @@ obj/
 .env
 .env.development
 .env.production
+
+Properties/PublishProfiles/
+*.pubxml
+*.pubxml.user
