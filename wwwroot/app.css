@@ -4,7 +4,6 @@
   box-sizing: border-box;
   font-family: "Consolas", monospace, sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
   font-style: normal;
   font-synthesis: none;
   font-size: 1rem;
@@ -28,35 +27,34 @@
   --clr-grey-7: rgb(076, 076, 076);
   --clr-grey-8: rgb(051, 051, 051);
   --clr-grey-9: rgb(025, 025, 025);
-  /*--clr-accent-1: rgb(235, 247, 255);
-  --clr-accent-2: rgb(221, 246, 255);
-  --clr-accent-3: rgb(184, 236, 255);
-  --clr-accent-4: rgb(146, 226, 255);
-  --clr-accent-5: rgb(102, 194, 255);
-  --clr-accent-6: rgb(019, 160, 255);
-  --clr-accent-7: rgb(011, 134, 215);*/
 
-  --clr-sky: #c7e8f3;
-  --clr-sky-light: color-mix(in hsl, var(--clr-sky), white 20%);
-  --clr-sky-dark: color-mix(in hsl, var(--clr-sky), black 20%);
+  --clr-back: #02011a;
+  --clr-main: #400976;
+  --clr-input: #8153ff;
+  --clr-button: #6732c4;
+  --clr-bit: #624ba7;
+  --clr-error: #a6166c;
 
-  --clr-background: rgb(48, 0, 56);
-  --clr-section: rgb(103, 44, 144);
+  --clr-main-soft: color-mix(in oklab, var(--clr-main), white 20%);
+  --clr-main-dark: color-mix(in oklab, var(--clr-main), black 5%);
 
-  --clr-tint-base: rgb(144, 66, 200);
-  --clr-tint-hover: rgb(171, 87, 231);
-  --clr-tint-press: rgb(179, 117, 223);
+  --clr-input-soft: color-mix(in oklab, var(--clr-input), white 15%);
+  --clr-input-dark: color-mix(in oklab, var(--clr-input), black 5%);
 
-  --clr-next-base: rgb(105, 26, 136);
-  --clr-next-hover: rgb(127, 43, 160);
-  --clr-next-press: rgb(87, 12, 117);
+  --clr-bit-soft: color-mix(in oklab, var(--clr-bit), white 15%);
+  --clr-bit-dark: color-mix(in oklab, var(--clr-bit), black 5%);
 
-  --clr-red: #e34668;
-  --clr-red-light: #723554;
+  --clr-button-soft: color-mix(in oklab, var(--clr-button), white 15%);
+  --clr-button-dark: color-mix(in oklab, var(--clr-button), black 5%);
+
+  --clr-error-soft: color-mix(in oklab, var(--clr-error), white 30%);
+  --clr-error-dark: color-mix(in oklab, var(--clr-error), black 10%);
+
+  --clr-bit-array: white;
 }
 
 input[type="radio"] {
-  accent-color: #a43cff;
+  accent-color: color-mix(in hsl, var(--clr-main), black 20%);
 }
 
 html,
@@ -64,7 +62,7 @@ body,
 main {
   width: 100vw;
   min-height: 100vh;
-  background-color: var(--clr-background);
+  background-color: var(--clr-back);
   overflow-x: hidden;
 }
 
@@ -78,8 +76,14 @@ main {
 nav {
   width: 100vw;
   height: 3rem;
-  background-color: var(--clr-section);
+  background-color: var(--clr-main);
   padding: 0 var(--inset);
+
+  div {
+    width: 32px;
+    height: 32px;
+    border: 1px solid white;
+  }
 }
 
 section {
@@ -87,8 +91,9 @@ section {
   margin: 0 var(--inset);
   overflow-x: hidden;
   flex: 1;
+  border-radius: 5px;
 
-  background-color: var(--clr-section);
+  background-color: var(--clr-main);
   box-shadow:
     0 4px 8px 0 #99999933,
     0 6px 20px 0 #99999933;

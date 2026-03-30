@@ -1,14 +1,14 @@
 ﻿<div class="bit-array">
-	<aside>@(BitOffset)</aside>
 	@for (int i = 7; i >= 0; i--)
 	{
 		int offset = i;
-		<button @onclick="@(() => ToggleBit(offset))">@((CurrentByte >> offset) & 1)</button>
-		if (offset == 4)
-		{
-			<div />
-		}
+		int value = (CurrentByte >> offset) & 1;
+		<button @onclick="@(() => ToggleBit(offset))"
+				class="@(value == 1 ? "one" : "")">
+			@(value)
+		</button>
 	}
+	<aside>@(BitOffset)</aside>
 </div>
 
 @code {

@@ -2,6 +2,7 @@ h1 {
   font-size: 2rem;
   font-weight: bold;
   flex: 1;
+  color: var(--clr-button-text);
   @media screen and (max-width: 600px) {
     font-size: 1.25rem;
   }
@@ -27,14 +28,14 @@ b {
 
 button {
   cursor: pointer;
-  background-color: var(--clr-tint-base);
+  background-color: var(--clr-button);
   border: none;
 
   &:hover {
-    background-color: var(--clr-tint-hover);
+    background-color: var(--clr-button-soft);
   }
 
   &:active {
-    background-color: var(--clr-tint-press);
+    background-color: var(--clr-button-dark);
   }
 }
