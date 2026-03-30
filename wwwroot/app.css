@@ -19,14 +19,14 @@
   --main-width: min(90vw, 1200px);
   --inset: calc((100vw - var(--main-width)) * 0.5);
   /* COLORS */
-  --clr-grey-1: rgb(225, 225, 225);
-  --clr-grey-2: rgb(200, 200, 200);
-  --clr-grey-3: rgb(175, 175, 175);
-  --clr-grey-4: rgb(150, 150, 150);
-  --clr-grey-5: rgb(125, 125, 125);
-  --clr-grey-6: rgb(100, 100, 100);
-  --clr-grey-7: rgb(075, 075, 075);
-  --clr-grey-8: rgb(050, 050, 050);
+  --clr-grey-1: rgb(229, 229, 229);
+  --clr-grey-2: rgb(204, 204, 204);
+  --clr-grey-3: rgb(178, 178, 178);
+  --clr-grey-4: rgb(153, 153, 153);
+  --clr-grey-5: rgb(127, 127, 127);
+  --clr-grey-6: rgb(102, 102, 102);
+  --clr-grey-7: rgb(076, 076, 076);
+  --clr-grey-8: rgb(051, 051, 051);
   --clr-grey-9: rgb(025, 025, 025);
   /*--clr-accent-1: rgb(235, 247, 255);
   --clr-accent-2: rgb(221, 246, 255);
@@ -35,19 +35,28 @@
   --clr-accent-5: rgb(102, 194, 255);
   --clr-accent-6: rgb(019, 160, 255);
   --clr-accent-7: rgb(011, 134, 215);*/
-  --clr-background: rgb(30, 20, 36);
-  --clr-section: rgb(65, 32, 89);
 
-  --clr-tint: rgb(139, 74, 185);
-  --clr-tint-hover: rgb(172, 102, 221);
-  --clr-tint-press: rgb(116, 60, 157);
+  --clr-sky: #c7e8f3;
+  --clr-sky-light: color-mix(in hsl, var(--clr-sky), white 20%);
+  --clr-sky-dark: color-mix(in hsl, var(--clr-sky), black 20%);
 
-  --clr-next-base: rgb(85, 0, 150);
-  --clr-next-hover: rgb(111, 0, 197);
-  --clr-next-press: rgb(61, 0, 107);
+  --clr-background: rgb(48, 0, 56);
+  --clr-section: rgb(103, 44, 144);
+
+  --clr-tint-base: rgb(144, 66, 200);
+  --clr-tint-hover: rgb(171, 87, 231);
+  --clr-tint-press: rgb(179, 117, 223);
+
+  --clr-next-base: rgb(105, 26, 136);
+  --clr-next-hover: rgb(127, 43, 160);
+  --clr-next-press: rgb(87, 12, 117);
 
   --clr-red: #e34668;
   --clr-red-light: #723554;
+}
+
+input[type="radio"] {
+  accent-color: #a43cff;
 }
 
 html,
@@ -56,13 +65,14 @@ main {
   width: 100vw;
   min-height: 100vh;
   background-color: var(--clr-background);
+  overflow-x: hidden;
 }
 
 main {
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 nav {
@@ -73,14 +83,15 @@ nav {
 }
 
 section {
+  padding: 1rem;
   margin: 0 var(--inset);
+  overflow-x: hidden;
   flex: 1;
+
   background-color: var(--clr-section);
   box-shadow:
-    0 4px 8px 0 #00000033,
-    0 6px 20px 0 #00000033;
-  padding: 1rem;
-  overflow-x: hidden;
+    0 4px 8px 0 #99999933,
+    0 6px 20px 0 #99999933;
 }
 
 hr {

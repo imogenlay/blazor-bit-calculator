@@ -12,10 +12,10 @@
     border: none;
     font-size: 1.5rem;
 
-    background-color: var(--clr-tint);
+    background-color: var(--clr-tint-base);
     &:focus,
     &:hover {
-      background-color: var(--clr-tint-press);
+      background-color: var(--clr-tint-hover);
     }
 
     &.oob {
@@ -58,10 +58,11 @@
     position: relative;
     display: grid;
     grid-template-columns: repeat(9, max-content);
-    border: 1px solid var(--clr-tint-hover);
+    border: 1px solid white;
 
     aside {
-      background-color: var(--clr-tint-hover);
+      color: var(--clr-background);
+      background-color: white;
       position: absolute;
       bottom: -0.75rem;
       right: -0.75rem;
@@ -80,13 +81,13 @@
 
     div {
       width: 2px;
-      background-color: var(--clr-tint);
+      background-color: white;
     }
 
     button {
       width: 1.5rem;
       height: 1.5rem;
-      border: 1px solid var(--clr-tint);
+      border: 1px solid white;
 
       @media screen and (min-width: 400px) {
         font-size: 1.25rem;
@@ -115,11 +116,11 @@
   padding: 2px 4px;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--clr-tint-base);
   }
 
   &:active {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--clr-tint-press);
   }
 }
 
@@ -134,7 +135,7 @@
   padding: 0.5rem;
   border: none;
   font-size: 1.25rem;
-  background-color: var(--clr-tint);
+  background-color: var(--clr-tint-base);
 
   &:hover {
     background-color: var(--clr-tint-hover);

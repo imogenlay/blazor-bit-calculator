@@ -27,7 +27,7 @@ b {
 
 button {
   cursor: pointer;
-  background-color: var(--clr-tint);
+  background-color: var(--clr-tint-base);
   border: none;
 
   &:hover {
