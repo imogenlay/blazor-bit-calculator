@@ -16,15 +16,27 @@ public class Calculator
 	}
 
 	public void UpdateOperator(OperatorType newOperator) => CurrentOperator = newOperator;
+
 	public void UpdatePreviousInput(string newInput)
 	{
 		if (Int128.TryParse(newInput, out Int128 result))
-			PreviousValue = Operations.CastToType(CurrentIntegerSize, result);
+			UpdatePreviousInput(result);
 	}
+
+	public void UpdatePreviousInput(Int128 result)
+	{
+		PreviousValue = Operations.CastToType(CurrentIntegerSize, result);
+	}
+
 	public void UpdateCurrentInput(string newInput)
 	{
 		if (Int128.TryParse(newInput, out Int128 result))
-			CurrentValue = result;
+			UpdateCurrentInput(result);
+	}
+
+	public void UpdateCurrentInput(Int128 result)
+	{
+		CurrentValue = result;
 	}
 
 	public void UpdateType(IntegerSize newIntegerSize)
@@ -33,10 +45,23 @@ public class Calculator
 		PreviousValue = Operations.CastToType(CurrentIntegerSize, PreviousValue);
 	}
 
-	public void RunCalculation()
+	public bool TryRunCalculation(out string message)
 	{
 		Int128 a = Operations.CastToType(CurrentIntegerSize, CurrentValue);
 		Int128 b = PreviousValue;
+
+		if (a == 0)
+			if (CurrentOperator == OperatorType.Divide)
+			{
+				message = "Cannot divide by 0";
+				return false;
+			}
+			else if (CurrentOperator == OperatorType.Mod)
+			{
+				message = "Cannot mod by 0";
+				return false;
+			}
+
 		Int128 c = unchecked(CurrentOperator switch
 		{
 			OperatorType.Equal => a,
@@ -54,5 +79,7 @@ public class Calculator
 		});
 
 		PreviousValue = Operations.CastToType(CurrentIntegerSize, c);
+		message = "Success";
+		return true;
 	}
 }

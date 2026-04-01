@@ -35,8 +35,8 @@
   --clr-bit: #624ba7;
   --clr-error: #a6166c;
 
-  --clr-main-soft: color-mix(in oklab, var(--clr-main), white 20%);
-  --clr-main-dark: color-mix(in oklab, var(--clr-main), black 5%);
+  --clr-main-soft: color-mix(in hsl, var(--clr-main), white 20%);
+  --clr-main-dark: color-mix(in hsl, var(--clr-main), white 10%);
 
   --clr-input-soft: color-mix(in oklab, var(--clr-input), white 15%);
   --clr-input-dark: color-mix(in oklab, var(--clr-input), black 5%);

@@ -1,21 +1,41 @@
 ﻿<div class="number-display">
-	<input class="@(GetClass())"
-		   value="@(GetInput())"
-		   @oninput="@(OnInput)" />
-	<div class="flex-row-s-c gap-b number-buttons">
+	<div class="input-area">
+		<label>
+			@(Label)
+		</label>
+		<input class="@(GetClass())"
+			   value="@(GetInput())"
+			   @oninput="@(OnChangeInput)" />
+	</div>
+
+	<div class="flex-row-s-s gap-b number-buttons">
 		<button @onclick="@(SetMin)">Min</button>
 		<button @onclick="@(Decrement)">-</button>
 		<button @onclick="@(Zero)">0</button>
 		<button @onclick="@(Increment)">+</button>
 		<button @onclick="@(SetMax)">Max</button>
+		<div />
 		<button @onclick="@(Not)">~</button>
+		<button @onclick="@(SwapSign)">+/-</button>
 	</div>
 </div>
 
 <div class="flex-col-s-c">
-	<ValueReader Prefix="DEC" Text="@(Decimal)" Copy="@(CopyDecimal)" />
-	<ValueReader Prefix="HEX" Text="@(Hexidecimal)" Copy="@(CopyHexidecimal)" />
-	<ValueReader Prefix="BIN" Text="@(Binary)" Copy="@(CopyBinary)" /> 
+	<ValueReader Prefix="DEC"
+				 Text="@(Decimal)"
+				 Selected="@(numberDisplayMode == NumberDisplayMode.Decimal)"
+				 Copy="@(CopyDecimal)"
+				 UpdateDisplayMode="@(() => UpdateNumberDisplayMode(NumberDisplayMode.Decimal))" />
+	<ValueReader Prefix="HEX"
+				 Text="@(Hexidecimal)"
+				 Selected="@(numberDisplayMode == NumberDisplayMode.Hexidecimal)"
+				 Copy="@(CopyHexidecimal)"
+				 UpdateDisplayMode="@(() => UpdateNumberDisplayMode(NumberDisplayMode.Hexidecimal))" />
+	<ValueReader Prefix="BIN"
+				 Text="@(Binary)"
+				 Selected="@(numberDisplayMode == NumberDisplayMode.Binary)"
+				 Copy="@(CopyBinary)"
+				 UpdateDisplayMode="@(() => UpdateNumberDisplayMode(NumberDisplayMode.Binary))" />
 </div>
 
 <div class="byte-array">
@@ -27,7 +47,7 @@
 			byte currentByte = (byte)((CurrentInput >> bitOffset) & byte.MaxValue);
 			<ByteDisplay BitOffset="@(bitOffset)"
 						 CurrentByte="@(currentByte)"
-						 OnModify="@(OnModify)" />
+						 OnModify="@(OnModifyBit)" />
 		}
 	}
 </div>
@@ -38,14 +58,42 @@
 	[Parameter] public IntegerSize CurrentIntegerSize { get; set; }
 	[Parameter] public EventCallback<ChangeEventArgs> OnInput { get; set; }
 
+	public string Label => numberDisplayMode switch
+	{  
+		NumberDisplayMode.Hexidecimal => "⒃",
+		NumberDisplayMode.Binary => "⑵",
+		_ => "⑽", 
+	};
 	public string Decimal => Bell.GetDecimal(CurrentIntegerSize, CurrentInput);
 	public string Hexidecimal => Bell.GetHexidecimal(CurrentIntegerSize, CurrentInput);
 	public string Binary => Bell.GetBinary(CurrentIntegerSize, CurrentInput);
 
+	private NumberDisplayMode numberDisplayMode;
+
 	private string GetInput()
 	{
 		Int128 input = DisplayOutOfBoundsInput ? CurrentInput : Operations.CastToType(CurrentIntegerSize, CurrentInput);
-		return input.ToString();
+
+		switch (numberDisplayMode)
+		{
+			case NumberDisplayMode.Hexidecimal:
+				if (input < 0)
+				{
+					input *= -1;
+					return "-" + input.ToString("X");
+				}
+				return input.ToString("X");
+
+			case NumberDisplayMode.Binary:
+				if (input < 0)
+				{
+					input *= -1;
+					return "-" + input.ToString("B");
+				}
+				return input.ToString("B");
+			default:
+				return input.ToString();
+		}
 	}
 
 	private string GetClass()
@@ -58,22 +106,32 @@
 		return className;
 	}
 
-	private void OnModify(ChangeEventArgs e)
+	private void OnModifyBit(ChangeEventArgs e)
 	{
 		if (e.Value == null)
 			return;
 		ByteModifier byteModifier = (ByteModifier)e.Value;
 		Int128 value = (Int128)byteModifier.Value << byteModifier.Offset;
 		Int128 mask = ~((Int128)0xFF << byteModifier.Offset);
-		ChangeInput((CurrentInput & mask) | value);
+		Int128 newValue = Operations.CastToType(CurrentIntegerSize, (CurrentInput & mask) | value);
+		ChangeInput(newValue);
 	}
 
 	private void SetMin() => ChangeInput(Operations.GetMin(CurrentIntegerSize));
+	private void SetMax() => ChangeInput(Operations.GetMax(CurrentIntegerSize));
 	private void Increment() => ChangeInput(Operations.Increment(CurrentIntegerSize, CurrentInput));
+	private void Decrement() => ChangeInput(Operations.Decrement(CurrentIntegerSize, CurrentInput));
 	private void Zero() => ChangeInput(0);
 	private void Not() => ChangeInput(Operations.CastToType(CurrentIntegerSize, ~CurrentInput));
-	private void Decrement() => ChangeInput(Operations.Decrement(CurrentIntegerSize, CurrentInput));
-	private void SetMax() => ChangeInput(Operations.GetMax(CurrentIntegerSize));
+	private void SwapSign() => ChangeInput(CurrentInput * -1);
+
+	private void OnChangeInput(ChangeEventArgs e)
+	{
+		if (e.Value == null)
+			return;
+		string input = (string)e.Value;
+		ChangeInput(Operations.ParseInteger(input, numberDisplayMode));
+	}
 
 	private void ChangeInput(Int128 value)
 	{
@@ -90,5 +148,10 @@
 	private void Copy(string value)
 	{
 		JS.InvokeVoidAsync("navigator.clipboard.writeText", value);
+	}
+
+	private void UpdateNumberDisplayMode(NumberDisplayMode _numberDisplayMode)
+	{
+		numberDisplayMode = _numberDisplayMode;
 	}
 }

@@ -6,19 +6,19 @@
 <article class="calculator">
 	<div class="flex-spread">
 		<NumberDisplay CurrentInput="@(calculator.PreviousValue)"
-					   DisplayOutOfBoundsInput="@(false)"
-					   CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
-					   OnInput="@(ReadPreviousInput)" />
+		DisplayOutOfBoundsInput="@(false)"
+		CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
+		OnInput="@(ReadPreviousInput)" />
 		<hr />
 		<NumberDisplay CurrentInput="@(calculator.CurrentValue)"
-					   DisplayOutOfBoundsInput="@(true)"
-					   CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
-					   OnInput="@(ReadCurrentInput)" />
+		DisplayOutOfBoundsInput="@(true)"
+		CurrentIntegerSize="@(calculator.CurrentIntegerSize)"
+		OnInput="@(ReadCurrentInput)" />
 		<div class="flex-row-s-s gap-b operator-buttons">
 			@foreach (OperatorType type in Enum.GetValues<OperatorType>())
 			{
 				<OperatorButton Operator="@(type)"
-								SelectOperator="@(SelectOperator)">
+				SelectOperator="@(SelectOperator)">
 					@(Operations.GetButtonTextForOperator(type))
 				</OperatorButton>
 			}
@@ -29,9 +29,9 @@
 			@foreach (IntegerSize size in Enum.GetValues<IntegerSize>())
 			{
 				<RadioButton Name="int_type"
-							 Value="@(size.ToString())"
-							 Selected="@(calculator.CurrentIntegerSize.ToString())"
-							 OnChange="@(() => calculator.UpdateType(size))" />
+				Value="@(size.ToString())"
+				Selected="@(calculator.CurrentIntegerSize.ToString())"
+				OnChange="@(() => calculator.UpdateType(size))" />
 			}
 		</div>
 		<hr />
@@ -56,47 +56,30 @@
 
 	private void ReadPreviousInput(ChangeEventArgs e)
 	{
-		UpdateInputWith(e, calculator.UpdatePreviousInput);
+		if (e.Value != null )
+		  calculator.UpdatePreviousInput((Int128)e.Value);
 	}
 
 	private void ReadCurrentInput(ChangeEventArgs e)
 	{
-		UpdateInputWith(e, calculator.UpdateCurrentInput);
-	}
-
-	private void UpdateInputWith(ChangeEventArgs e, Action<string> action)
-	{
-		string newInput = e.Value?.ToString() ?? "0";
-		StringBuilder sb = new();
-		for (int i = 0; i < newInput.Length; i++)
-		{
-			if (newInput[i] == '-')
-			{
-				if (sb.Length == 0)
-					sb.Append('-');
-				continue;
-			}
-
-			if (newInput[i] >= '0' && newInput[i] <= '9')
-				sb.Append(newInput[i]);
-		}
-
-		if (sb.Length > 0)
-			action(sb.ToString());
+		if (e.Value != null)
+			calculator.UpdateCurrentInput((Int128)e.Value); 
 	}
 
 	private void SelectOperator(OperatorType newOperator)
 	{
 		calculator.UpdateOperator(newOperator);
-		calculator.RunCalculation();
-		AppendHistory();
+		if (calculator.TryRunCalculation(out string? message))
+			AppendHistory(calculator.PreviousValue.ToString());
+		else
+			AppendHistory(message);
 	}
 
-	private void AppendHistory()
+	private void AppendHistory(string history)
 	{
 		if (showHistory)
 		{
-			calculationHistory.Add(calculator.PreviousValue.ToString());
+			calculationHistory.Add(history);
 			if (calculationHistory.Count > 30)
 				calculationHistory.RemoveRange(0, calculationHistory.Count - 30);
 		}

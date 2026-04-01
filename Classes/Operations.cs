@@ -1,7 +1,48 @@
 ﻿namespace BitCalculator;
-
 public static class Operations
 {
+	public static Int128 ParseInteger(string input, NumberDisplayMode numberDisplayMode)
+	{
+		input = input.ToUpper().Trim();
+		Int128 result = 0;
+		Int128 multiplier = 1;
+
+		for (int i = 0; i < input.Length; i++)
+		{
+			char c = input[i];
+			if (i == 0 && c == '-')
+			{
+				multiplier = -1;
+				continue;
+			}
+
+			if (numberDisplayMode == NumberDisplayMode.Decimal)
+			{
+				if (c < '0' || c > '9')
+					continue;
+
+				result = (result * 10) + (Int128)(c - '0');
+			}
+			else if (numberDisplayMode == NumberDisplayMode.Hexidecimal)
+			{
+				if (c < '0' || c > 'F' || (c > '9' && c < 'A'))
+					continue;
+
+				result = (result << 4) | (Int128)Uri.FromHex(c);
+			}
+			else if (numberDisplayMode == NumberDisplayMode.Binary)
+			{
+				if (c == '0')
+					result <<= 1;
+				else if (c == '1')
+					result = (result << 1) | 1;
+				continue;
+			}
+		}
+
+		return result * multiplier;
+	}
+
 	public static string GetButtonTextForOperator(OperatorType operatorType)
 	{
 		return operatorType switch

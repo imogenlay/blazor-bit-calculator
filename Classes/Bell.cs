@@ -1,6 +1,5 @@
-﻿using System.Text;
-
-namespace BitCalculator;
+﻿namespace BitCalculator;
+using System.Text;
 
 public static class Bell
 {
