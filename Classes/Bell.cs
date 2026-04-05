@@ -5,7 +5,7 @@ public static class Bell
 {
 	public static string GetDecimal(IntegerSize type, Int128 value)
 	{
-		return Operations.CastToType(type, value).ToString();
+		return SpaceNumber(Operations.CastToType(type, value).ToString(), 3, ',');
 	}
 
 	public static string GetBinary(IntegerSize type, Int128 value) => BuildString(type, value, "B");
